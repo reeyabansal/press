@@ -1,5 +1,9 @@
 # press
 
+High-level description of what kind of application your team is thinking of developing:
+Our team is thinking of creating a Java application with the use of Swing. The application itself will contain multiple tabs that will enable the user to track their finances and spending. Some example tabs include: past expenses, trends, log a purchase, my portfolio (stocks). With the help of an API, our app will also include a feature where the user will be able to look at trends in their stocks, the gains and losses from this will be included in the total budget value of the user.  
+
+
 A link to the documentation for an API:
 https://site.financialmodelingprep.com/developer/docs
 
