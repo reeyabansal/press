@@ -28,7 +28,8 @@ financial goals by offering a comprehensive, user-friendly platform.
 
 ## High-level description of what kind of application your team is thinking of developing:
 
-Our team is thinking of creating a Java application with the use of Swing. The application itself will contain multiple tabs that will enable the user to track their finances and spending. Some example tabs include: past expenses, trends, log a purchase, financial goals, and investment portfolio tracking(stocks). With the help of an API, our app will also include a feature where the user will be able to look at trends in their stocks, the gains and losses from this will be included in the total budget value of the user. We will also display financial insights relating to the user's spending (eg: expense categories, cost/investment ratio, etc.) in easy-to-digest charts and other graphical means.  
+The application will show a map where the user can click on specific countries which will display the links to the latest news articles from that region. Each news article will contain a title, a designated visual, a short summary, and the date. In addition to that, the user will be presented with the option to filter the news articles based on a given time frame and language. 
+Our team hopes to show the news articles that are more relevant to them. The program will also have a feature that will color code the regions based on the top stories in today’s world - essentially an activity heat map. 
 
 
 ## Link to the documentation for an API:
