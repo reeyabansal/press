@@ -2,28 +2,13 @@
 
 ## A description of the problem domain your team is tentatively wanting to focus on in the project:
 
-Managing investments, assets and saving can be a daunting task in today’s financially complex world. 
-We propose to explore this problem domain through this project and focus on these areas to address the challenges that 
-different individuals might face in their quest for financial security and wealth growth.
+Thousands of news articles are uploaded every day. With different sources and different points of view, it can be hard to filter through the various reports. We propose to explore this problem domain through this project and focus on these areas to address the challenges that different individuals might face when looking up the news for today.
 
-A big challenge for investors is the need to diversify their investments across different classes of assets like 
-stocks, bonds, and real estate. We will investigate tracking one’s stock portfolio and changes along with tracking 
-other investment and asset values and allow users to view real-time data on their investment returns, historical 
-performance, and compare them to relevant benchmarks. By identifying these trends, users can identify the 
-underperforming assets and make the required adjustments. We aim to help users in investment diversification through 
-a centralized platform and to ensure they get their up-to-date net-worth calculation.
+A big challenge that many people face is knowing what is happening in the world and what the top stories are. They are often overwhelmed with the vast majority of articles from different countries and different languages. We will track the current news articles released for the day and filter them based on region and language. Through this sorting method, users will be able to easily visualize the stories in the world based on the area, and have the option to select the preference of their language. 
 
-A finance challenge common to people in all walks of life is budgeting and saving. Effective budgeting is a fundamental 
-aspect of financial management. We aim to provide expenses tracking and trend analysis along with savings goal setting 
-features. Goal setting and tracking will allow users to define and track their saving goals, whether it's for a down 
-payment on a house, retirement, or a dream vacation. To better personal finances, we will also aim to improve the user’s
-financial literacy through suggesting education resources instructing on investment strategies, savings tips, and 
-financial planning. This project will aim to accomplish the listed tasks while ensuring security and privacy of all 
-financial data and will try to ensure the intuition and ease of navigation through features.
+Another issue that users face is selecting the current events articles that they should read based on relevancy. Our goal is to provide a visual aid for news and display countries/regions with the most events going on at the given moment. On top of that, we want to give the user the option to select their desired time frame and update the results of the news based on the selected date(s). 
 
-In conclusion, this project will discuss the complicated and dynamic problems of personal finance. It strives to empower
-people to take control of their financial destinies, make educated decisions, and confidently move towards their 
-financial goals by offering a comprehensive, user-friendly platform.
+In conclusion, this project will try to solve the problem of abundant and redundant news articles. We will strive to educate the population about current events, so more people are aware of what is currently going around in the world through accurate sources. 
 
 
 ## High-level description of what kind of application your team is thinking of developing:
