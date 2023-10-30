@@ -18,7 +18,7 @@ Our team hopes to show the news articles that are more relevant to them. The pro
 
 
 ## Link to the documentation for an API:
-https://site.financialmodelingprep.com/developer/docs
+https://newsapi.org/docs
 
 A screenshot of using a tool to try out the API:
 ![hoppscotch test api call.png](hoppscotch%20test%20api%20call.png)
