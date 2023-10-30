@@ -3,9 +3,13 @@ import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
-public class test {
+public class sample_api_call {
     public static void main(String[] args) {
-        NewsApiClient newsApiClient = new NewsApiClient("1271b25519b64342802765dd7aa7b8f2");
+        // IMPORTANT: set environment variable with API_KEY=YOUR_API_KEY_HERE in run configurations
+        // and replace YOUR_API_KEY_HERE with your api key (similar to the grade api example from lab)
+        String API_KEY = System.getenv("API_KEY");
+
+        NewsApiClient newsApiClient = new NewsApiClient(API_KEY);
 
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()

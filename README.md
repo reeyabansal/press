@@ -16,12 +16,8 @@ In conclusion, this project will try to solve the problem of abundant and redund
 The application will show a map where the user can click on specific countries which will display the links to the latest news articles from that region. Each news article will contain a title, a designated visual, a short summary, and the date. In addition to that, the user will be presented with the option to filter the news articles based on a given time frame and language. 
 Our team hopes to show the news articles that are more relevant to them. The program will also have a feature that will color code the regions based on the top stories in today’s world - essentially an activity heat map. 
 
-
 ## Link to the documentation for an API:
 https://newsapi.org/docs
-
-A screenshot of using a tool to try out the API:
-![hoppscotch test api call.png](hoppscotch%20test%20api%20call.png)
 
 ## A screenshot of using a tool to try out the API:
 ![hoppscotch test api call.png](hoppscotch%20test%20api%20call.png)
