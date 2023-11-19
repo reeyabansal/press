@@ -1,8 +1,8 @@
 package entity;
 
-import java.lang.reflect.Array;
+import DataAccess.NewsAPICountry;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Country {
 
@@ -15,11 +15,8 @@ public class Country {
     }
 
     public void Setarticles(){
-        for(int i = 0; i < 5; i++){
-            /*To be un commented when article is made*/
-
-            //articles.add(Article.FindArticles(name));
-        }
+        NewsAPICountry news = new NewsAPICountry();
+//        Updated create method to get n articles at once to reduce number of api calls; review later.
     }
     public ArrayList<Article> Getarticles(){
         return this.articles;
