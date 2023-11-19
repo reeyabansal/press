@@ -1,7 +1,11 @@
 package use_case.Map;
 
+import DataAccess.NewsAPICountry;
+import entity.Article;
+import entity.ArticleFactory;
 import entity.CommonArticle;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class MapInteractor implements MapInputBoundary{
@@ -11,9 +15,11 @@ public class MapInteractor implements MapInputBoundary{
     }
 
     public void execute(MapInputData mapInputData) {
-        // TODO: write API call that gets all the articles for countryName. Store them as article objects and create
-        //  an ArrayList of Article objects to create MapOutputData
-        MapOutputData mapOutputData = new MapOutputData(new ArrayList<CommonArticle>());
+        ArticleFactory articleFactory = new NewsAPICountry();
+
+        // n = -1 indicates "get all articles"
+        List<Article> articles = articleFactory.createArticles(mapInputData.getCountryName(), -1);
+        MapOutputData mapOutputData = new MapOutputData(articles);
         mapPresenter.prepareView(mapOutputData);
     }
 }

@@ -26,7 +26,7 @@ public class NewsAPICountry implements ArticleFactory {
      * articles exceeds the limit provided by NewsApi, the maximum number of articles is
      * provided instead
      * @param country the country to have articles sourced from
-     * @param number the number of articles to create
+     * @param number the number of articles to create; negative one if it should be all of them
      * @return a list with n articles sourced from the given country
      */
     @Override
@@ -40,7 +40,9 @@ public class NewsAPICountry implements ArticleFactory {
                     @Override
                     public void onSuccess(ArticleResponse response) {
                         List<com.kwabenaberko.newsapilib.models.Article> retrieved = response.getArticles();
-                        int limit = Math.min(number, retrieved.size());
+                        int limit;
+                        if (number == -1) limit = retrieved.size();
+                        else limit = Math.min(number, retrieved.size());
                         for(int i = 0; i < limit; i++) {
                             Article toAdd = new CommonArticle(
                                     retrieved.get(i).getTitle(),
