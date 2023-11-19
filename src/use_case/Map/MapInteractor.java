@@ -11,7 +11,8 @@ public class MapInteractor implements MapInputBoundary{
     }
 
     public void execute(MapInputData mapInputData) {
-        // TODO: write API call
+        // TODO: write API call that gets all the articles for countryName. Store them as article objects and create
+        //  an ArrayList of Article objects to create MapOutputData
         MapOutputData mapOutputData = new MapOutputData(new ArrayList<CommonArticle>());
         mapPresenter.prepareView(mapOutputData);
     }
