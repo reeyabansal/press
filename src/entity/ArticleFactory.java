@@ -1,6 +1,8 @@
 package entity;
 
+import java.util.List;
+
 public interface ArticleFactory {
 
-    Article createArticle(String parameter, String type);
+    List<Article> createArticles(String parameter, int n);
 }

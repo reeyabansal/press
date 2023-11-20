@@ -1,17 +1,17 @@
 package use_case.Map;
 
-import entity.CommonArticle;
+import entity.Article;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MapOutputData {
-    private final ArrayList<CommonArticle> articles;
+    private final List<Article> articles;
 //    private boolean useCaseFailed;
 
-    public MapOutputData(ArrayList<CommonArticle> articles){
+    public MapOutputData(List<Article> articles){
         this.articles = articles;
     }
 
-    public ArrayList<CommonArticle> getArticles(){return articles;}
+    public List<Article> getArticles(){return articles;}
 
 }
