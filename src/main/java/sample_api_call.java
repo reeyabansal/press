@@ -9,6 +9,7 @@ public class sample_api_call {
         // and replace YOUR_API_KEY_HERE with your api key (similar to the grade api example from lab)
         String API_KEY = System.getenv("API_KEY");
 
+
         NewsApiClient newsApiClient = new NewsApiClient(API_KEY);
 
         newsApiClient.getEverything(
