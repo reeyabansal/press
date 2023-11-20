@@ -5,10 +5,10 @@ import entity.Article;
 import java.util.List;
 
 public class MapOutputData {
-    private final List<Article> articles;
+    private final List<List<String>> articles;
 //    private boolean useCaseFailed;
 
-    public MapOutputData(List<Article> articles){
+    public MapOutputData(List<List<String>> articles){
         this.articles = articles;
     }
 

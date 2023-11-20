@@ -19,7 +19,18 @@ public class MapInteractor implements MapInputBoundary{
 
         // n = -1 indicates "get all articles"
         List<Article> articles = articleFactory.createArticles(mapInputData.getCountryName(), -1);
-        MapOutputData mapOutputData = new MapOutputData(articles);
+        List<List<String>> output = new ArrayList<>();
+        for (Article a: articles) {
+            List<String> x = new ArrayList<>();
+            x.add(a.getTitle());
+            x.add(a.getImageUrl());
+            x.add(a.getDescription());
+            x.add(a.getUrl());
+            x.add(a.getPublishedAt());
+            x.add(a.getAuthor());
+            output.add(x);
+        }
+        MapOutputData mapOutputData = new MapOutputData(output);
         mapPresenter.prepareView(mapOutputData);
     }
 }
