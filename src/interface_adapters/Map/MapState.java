@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapState {
+    // Title, ImageURL, Description, URL, PublishedAt, Author
     private List<List<String>> articles = new ArrayList<>();
 
     public MapState() {
@@ -14,6 +15,7 @@ public class MapState {
     }
 
     public List<List<String>> getArticles() {
+        // Title, ImageURL, Description, URL, PublishedAt, Author
         return articles;
     }
 }
