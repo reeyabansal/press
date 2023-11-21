@@ -19,11 +19,12 @@ public class sample_api_call {
                 new NewsApiClient.ArticlesResponseCallback() {
                     @Override
                     public void onSuccess(ArticleResponse response) {
-                        System.out.println(response.getArticles().get(0).getUrl());
+                        System.out.println(response.getArticles().get(0).getTitle());
                         System.out.println(response.getArticles().get(0).getUrlToImage());
                         System.out.println(response.getArticles().get(0).getDescription());
-                        System.out.println(response.getArticles().get(0).getContent());
-                        System.out.println(response.getArticles().toArray().length);
+                        System.out.println(response.getArticles().get(0).getUrl());
+                        System.out.println(response.getArticles().get(0).getPublishedAt());
+                        System.out.println(response.getArticles().get(0).getAuthor());
 
                     }
 
