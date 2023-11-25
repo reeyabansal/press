@@ -24,7 +24,7 @@ public class HomeScreen {
     private JPanel map;
     private JButton articles[];
     private List<List<String>> info = new ArrayList<>(); //example data set pulled from API
-    private String searchText;
+    private String keyword;
 
     public HomeScreen() throws IOException {
         //making the example data set
@@ -55,7 +55,7 @@ public class HomeScreen {
         info.add(f5);
         info.add(f6);
 
-        articles = new JButton[info.size()];
+        articles = new JButton[info.size()]; //making as many buttons as there are articles
 
         app = new JFrame();
 
@@ -67,8 +67,7 @@ public class HomeScreen {
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                searchText = search.getText();
-                System.out.println(searchText);
+                keyword = search.getText();
             }
         });
 
@@ -147,6 +146,14 @@ public class HomeScreen {
         map.add(imgLabel);
         home.add(map);
 
+        this.makeCountryClick(bCA, "Canada");
+        this.makeCountryClick(bUS, "United States");
+        this.makeCountryClick(bRU, "Russia");
+        this.makeCountryClick(bAUS, "Australia");
+        this.makeCountryClick(bBR, "Brazil");
+        this.makeCountryClick(bIND, "India");
+        this.makeCountryClick(bCHN, "China");
+
         app.add(home);
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setTitle("press");
@@ -165,6 +172,15 @@ public class HomeScreen {
                 } catch (IOException | URISyntaxException ex) {
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+    }
+
+    public void makeCountryClick(JButton button, String country){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                keyword = country;
             }
         });
     }
