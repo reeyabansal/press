@@ -3,14 +3,36 @@ import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
+
+import java.util.List;
+import DataAccess.NewsAPICountry;
+import entity.Article;
+
 public class sample_api_call {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
+        // instantiate the factory class
+        NewsAPICountry c = new NewsAPICountry();
+
+        // create two articles about canada and store them
+        List<Article> articles = c.createArticles("Canada", 2);
+
+        // can also get the articles later
+        List<Article> articles2 = c.getArticleList();
+
+        // do operations with them
+        System.out.println(articles.get(0).getTitle());
+        System.out.println(c);
+        System.out.print(articles);
+        System.out.println(articles.size());
+        System.out.println(articles.get(0).getUrl());
+
+        // example API calls with the NewsApiClient directly
         // IMPORTANT: set environment variable with API_KEY=YOUR_API_KEY_HERE in run configurations
         // and replace YOUR_API_KEY_HERE with your api key (similar to the grade api example from lab)
         String API_KEY = System.getenv("API_KEY");
 
         NewsApiClient newsApiClient = new NewsApiClient(API_KEY);
-
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()
                         .q("Israel")
@@ -23,7 +45,6 @@ public class sample_api_call {
                         System.out.println(response.getArticles().get(0).getDescription());
                         System.out.println(response.getArticles().get(0).getContent());
                         System.out.println(response.getArticles().toArray().length);
-
                     }
 
                     @Override
