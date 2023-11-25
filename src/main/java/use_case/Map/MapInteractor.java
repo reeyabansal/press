@@ -14,7 +14,7 @@ public class MapInteractor implements MapInputBoundary{
         this.mapPresenter = mapOutputBoundary;
     }
 
-    public void execute(MapInputData mapInputData) {
+    public void execute(MapInputData mapInputData) throws InterruptedException {
         ArticleFactory articleFactory = new NewsAPICountry();
 
         // n = -1 indicates "get all articles"
