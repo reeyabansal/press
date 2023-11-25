@@ -9,7 +9,7 @@ import DataAccess.NewsAPICountry;
 import entity.Article;
 
 public class sample_api_call {
-    public static void main(String[] args) throws InterruptedException {
+    public static <NewsAPICountry> void main(String[] args) throws InterruptedException {
 
         // instantiate the factory class
         NewsAPICountry c = new NewsAPICountry();

@@ -1,5 +1,7 @@
 package app.view;
 
+import interface_adapters.Map.MapViewModel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -23,37 +25,13 @@ public class HomeScreen {
     private JTextField search;
     private JPanel map;
     private JButton articles[];
-    private List<List<String>> info = new ArrayList<>(); //example data set pulled from API
+    private List<List<String>> info; //example data set pulled from API
     private String keyword;
 
     public HomeScreen() throws IOException {
-        //making the example data set
-        ArrayList<String> f = new ArrayList<String>();
-        String Title = "Rocket Alert Apps Warn Israelis of Incoming Attacks While Gaza Is Left in the Dark.";
-        String ImageURL = "https://media.wired.com/photos/653a575dacbe529f7b6d7872/191:100/w_1280,c_limit/rocket-biz-GettyImages-1740679014.jpg";
-        String Description = "Civilians in Israel can get mobile alerts of incoming rockets from apps that relay data from the Israel Defense Forces. Gaza has no early warning system, or internet access.";
-        String URL = "https://www.wired.com/story/rocket-alert-apps-warn-israelis-attacks-gaza-left-in-the-dark/";
-        String PublishedAt = "2023-10-28T06:00:00Z";
-        String Author = "Paresh Dave";
-        f.add(Title);
-        f.add(ImageURL);
-        f.add(Description);
-        f.add(URL);
-        f.add(PublishedAt);
-        f.add(Author);
-        info.add(f);
-        ArrayList<String> f1 = new ArrayList<String>(f);
-        ArrayList<String> f2 = new ArrayList<String>(f);
-        ArrayList<String> f3 = new ArrayList<String>(f);
-        ArrayList<String> f4 = new ArrayList<String>(f);
-        ArrayList<String> f5 = new ArrayList<String>(f);
-        ArrayList<String> f6 = new ArrayList<String>(f);
-        info.add(f1);
-        info.add(f2);
-        info.add(f3);
-        info.add(f4);
-        info.add(f5);
-        info.add(f6);
+
+        info = new MapViewModel().getState().getArticles();
+
 
         articles = new JButton[info.size()]; //making as many buttons as there are articles
 
@@ -80,12 +58,12 @@ public class HomeScreen {
             articles[i].setLayout(new BorderLayout());
 
             ArrayList<String> u = new ArrayList<String>(info.get(i));
-            Title = u.get(0);
-            ImageURL = u.get(1);
-            Description = u.get(2);
-            URL = u.get(3);
-            PublishedAt = u.get(4);
-            Author = u.get(5);
+            String Title = u.get(0);
+            String ImageURL = u.get(1);
+            String Description = u.get(2);
+            String url = u.get(3);
+            String PublishedAt = u.get(4);
+            String Author = u.get(5);
             String text = "\n" + Description + "\n" + PublishedAt + "\n" + Author;
             BufferedImage image = ImageIO.read(new URL(ImageURL));
 
@@ -97,7 +75,7 @@ public class HomeScreen {
             article.setPreferredSize(new Dimension(290, 300));
             article.setFont(new Font("Calibri",Font.PLAIN,13));
             articles[i].add(article);
-            this.makeClick(URL, articles[i]);
+            this.makeClick(url, articles[i]);
             btns.add(articles[i]);
         }
         home.add(btns);
