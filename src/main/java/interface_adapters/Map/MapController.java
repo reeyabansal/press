@@ -6,11 +6,11 @@ import use_case.Map.MapInputData;
 public class MapController {
     final MapInputBoundary mapInteractor;
 
-    public MapController(MapInputBoundary mapInputBoundar) {
-        this.mapInteractor = mapInputBoundar;
+    public MapController(MapInputBoundary mapInputBoundary) {
+        this.mapInteractor = mapInputBoundary;
     }
 
-    public void execute(String countryName) {
+    public void execute(String countryName) throws InterruptedException {
         MapInputData mapInputData = new MapInputData(countryName);
 
         mapInteractor.execute(mapInputData);
