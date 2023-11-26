@@ -1,5 +1,6 @@
 import com.kwabenaberko.newsapilib.*;
 import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
+import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
@@ -9,7 +10,7 @@ import DataAccess.NewsAPICountry;
 import entity.Article;
 
 public class sample_api_call {
-    public static <NewsAPICountry> void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
 
         // instantiate the factory class
         NewsAPICountry c = new NewsAPICountry();
@@ -72,5 +73,29 @@ public class sample_api_call {
                     }
                 }
         );
+
+        System.out.println("top headlines");
+        newsApiClient.getTopHeadlines(
+                new TopHeadlinesRequest.Builder()
+//                        .q("Japan")
+                        .country("cn")
+                        .pageSize(20)
+                        .build(),
+                new NewsApiClient.ArticlesResponseCallback() {
+                    @Override
+                    public void onSuccess(ArticleResponse response) {
+                        for(int i = 0; i < Math.min(20, response.getTotalResults()); i++) {
+                            System.out.println(response.getArticles().get(i).getUrl());
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        System.out.println(throwable.getMessage());
+                    }
+                }
+        );
+
     }
 }
