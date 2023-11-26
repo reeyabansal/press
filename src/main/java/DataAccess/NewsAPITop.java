@@ -12,19 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import static java.util.Map.entry;
+import use_case.TopNews.SUPPORTED_COUNTRIES;
 
 public class NewsAPITop implements ArticleFactory {
     private final NewsApiClient newsApiClient;
-    private final Map<String, String> supportedCountries = Map.ofEntries(
-        entry("Canada", "ca"),
-        entry("United States", "us"),
-        entry("Russia", "ru"),
-        entry("Australia", "au"),
-        entry("Brazil", "br"),
-        entry("India", "in"),
-        entry("China", "cn")
-    );
+    private final Map<String, String> supportedCountries = SUPPORTED_COUNTRIES.getSupportedCountries();
     private List<Article> articleList;
     private int totalResults;
     public NewsAPITop () {
