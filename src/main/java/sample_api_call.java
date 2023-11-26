@@ -1,3 +1,4 @@
+import DataAccess.NewsAPITop;
 import com.kwabenaberko.newsapilib.*;
 import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
@@ -27,6 +28,16 @@ public class sample_api_call {
         System.out.print(articles);
         System.out.println(articles.size());
         System.out.println(articles.get(0).getUrl());
+
+        System.out.println("newsapitop");
+        NewsAPITop d = new NewsAPITop();
+        List<Article> top = d.createArticles("Canada", 2);
+        System.out.println(top.get(0).getTitle());
+        System.out.println(d.getTotalResults());
+
+        top = d.createArticles("China", 3);
+        System.out.println(top.get(0).getTitle());
+        System.out.println(d.getTotalResults());
 
         // example API calls with the NewsApiClient directly
         // IMPORTANT: set environment variable with API_KEY=YOUR_API_KEY_HERE in run configurations
@@ -77,14 +88,13 @@ public class sample_api_call {
         System.out.println("top headlines");
         newsApiClient.getTopHeadlines(
                 new TopHeadlinesRequest.Builder()
-//                        .q("Japan")
-                        .country("cn")
+                        .country("us")
                         .pageSize(20)
                         .build(),
                 new NewsApiClient.ArticlesResponseCallback() {
                     @Override
                     public void onSuccess(ArticleResponse response) {
-                        for(int i = 0; i < Math.min(20, response.getTotalResults()); i++) {
+                        for(int i = 0; i < Math.min(5, response.getTotalResults()); i++) {
                             System.out.println(response.getArticles().get(i).getUrl());
                         }
 
