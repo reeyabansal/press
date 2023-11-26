@@ -29,9 +29,9 @@ public class NewsAPICountry implements ArticleFactory {
     }
 
     /**
-     * Creates n articles that are about the given country. If the number of requested
+     * Creates n articles that mention the given country. If the number of requested
      * articles exceeds the limit provided by NewsApi, the maximum number of articles is
-     * provided instead
+     * provided instead.
      *
      * @param country the country to have articles sourced from
      * @param number  the number of articles to create; negative one if it should be all of them
