@@ -78,7 +78,19 @@ public class HomeScreen {
             this.makeClick(url, articles[i]);
             btns.add(articles[i]);
         }
-        home.add(btns);
+
+
+        // Added horizontal scroll bar
+
+        JScrollPane scrollPane = new JScrollPane(btns);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        JPanel contentPane = new JPanel(null);
+        contentPane.add(scrollPane);
+        app.setContentPane(contentPane);
+
+
+        // home.add(btns);
 
         map = new JPanel();
         map.setPreferredSize(new Dimension(1200, 800));
