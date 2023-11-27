@@ -21,6 +21,7 @@ import java.util.List;
 
 public class HomeScreen {
 
+    public final String viewName = "sign up";
     private JPanel home;
     private JFrame app;
     private JTextField search;
@@ -86,11 +87,22 @@ public class HomeScreen {
             this.makeClick(url, articles[i]);
             btns.add(articles[i]);
         }
-        home.add(btns);
+
+
+        // Added horizontal scroll bar
+
+        JScrollPane scrollPane = new JScrollPane(btns);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        JPanel contentPane = new JPanel(null);
+        contentPane.add(scrollPane);
+        // app.setContentPane(contentPane);
+
+        home.add(contentPane);
 
         map = new JPanel();
         map.setPreferredSize(new Dimension(1200, 800));
-        JLabel imgLabel = new JLabel(new ImageIcon("/Users/saketrane/IdeaProjects/RoughGUI_press/src/map.png"));
+        JLabel imgLabel = new JLabel(new ImageIcon("assets/map.png"));
         imgLabel.setPreferredSize(new Dimension(1200, 500));
 
         JButton bCA = new JButton("CA");
