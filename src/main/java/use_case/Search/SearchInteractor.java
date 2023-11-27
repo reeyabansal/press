@@ -3,7 +3,6 @@ package use_case.Search;
 import data_access.NewsAPICountry;
 import entity.Article;
 import entity.ArticleFactory;
-import use_case.Map.MapOutputData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class SearchInteractor implements SearchInputBoundary{
             x.add(a.getAuthor());
             output.add(x);
         }
-        SearchOutputData mapOutputData = new SearchOutputData(output);
-        searchPresenter.prepareView(mapOutputData);
+        SearchOutputData searchOutputData = new SearchOutputData(output);
+        searchPresenter.prepareView(searchOutputData);
     }
 }

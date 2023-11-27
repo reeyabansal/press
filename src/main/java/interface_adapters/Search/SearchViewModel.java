@@ -1,30 +1,33 @@
-package interface_adapters.Map;
+package interface_adapters.Search;
 
+import interface_adapters.Map.MapState;
 import interface_adapters.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class MapViewModel extends ViewModel {
+public class SearchViewModel extends ViewModel {
+
     public static final String TITLE_LABEL = "Articles";
     public static final String EXIT_BUTTON_LABEL = "EXIT";
-    private MapState state = new MapState();
+    private SearchState state = new SearchState();
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public MapViewModel() {
-        super("map");
+    public SearchViewModel() {
+        super("search");
     }
 
-    public void setState(MapState mapState) {this.state = mapState;}
-
-    public MapState getState() {
+    public SearchState getState() {
         return state;
     }
 
-    @Override
+    public void setState(SearchState searchState) {
+        this.state = searchState;
+    }
+
     public void firePropertyChanged() {
-        support.firePropertyChange("mapState", null, this.state);
+        support.firePropertyChange("searchState", null, this.state);
     }
 
     @Override
