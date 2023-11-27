@@ -1,5 +1,20 @@
 package interface_adapters.Favourite;
 
-public class FavouriteController {
+import use_case.Favourite.FavouriteInputBoundary;
+import use_case.Favourite.FavouriteInputData;
 
+import java.util.List;
+
+public class FavouriteController {
+    final FavouriteInputBoundary favouriteInteractor;
+
+    public FavouriteController(FavouriteInputBoundary favouriteInteractor) {
+        this.favouriteInteractor = favouriteInteractor;
+    }
+
+    public void execute(List<String> article) {
+        FavouriteInputData favouriteInputData = new FavouriteInputData(article);
+
+        favouriteInteractor.execute(favouriteInputData);
+    }
 }
