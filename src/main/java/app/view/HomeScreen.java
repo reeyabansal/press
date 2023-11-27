@@ -87,10 +87,9 @@ public class HomeScreen {
 
         JPanel contentPane = new JPanel(null);
         contentPane.add(scrollPane);
-        app.setContentPane(contentPane);
+        // app.setContentPane(contentPane);
 
-
-        // home.add(btns);
+        home.add(contentPane);
 
         map = new JPanel();
         map.setPreferredSize(new Dimension(1200, 800));
