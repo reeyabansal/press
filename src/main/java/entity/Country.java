@@ -1,6 +1,6 @@
 package entity;
 
-import DataAccess.NewsAPICountry;
+import data_access.NewsAPICountry;
 
 import java.util.ArrayList;
 

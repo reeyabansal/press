@@ -1,4 +1,4 @@
-import DataAccess.NewsAPITop;
+import data_access.NewsAPITop;
 import com.kwabenaberko.newsapilib.*;
 import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
@@ -7,7 +7,7 @@ import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
 
 import java.util.List;
-import DataAccess.NewsAPICountry;
+import data_access.NewsAPICountry;
 import entity.Article;
 
 public class sample_api_call {

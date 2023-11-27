@@ -1,8 +1,7 @@
 package use_case.TopNews;
 
-import DataAccess.NewsAPITop;
+import data_access.NewsAPITop;
 import entity.Article;
-import entity.ArticleFactory;
 
 import java.util.ArrayList;
 import java.util.List;

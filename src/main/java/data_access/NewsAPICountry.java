@@ -1,4 +1,4 @@
-package DataAccess;
+package data_access;
 
 import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;

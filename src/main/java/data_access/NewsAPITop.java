@@ -1,4 +1,4 @@
-package DataAccess;
+package data_access;
 
 import com.kwabenaberko.newsapilib.NewsApiClient;
 import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;

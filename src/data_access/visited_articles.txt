@@ -1,0 +1,1 @@
+username,article_url,visited_time
