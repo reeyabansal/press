@@ -1,5 +1,6 @@
 package app.view;
 
+import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapViewModel;
 
 import javax.imageio.ImageIO;
@@ -28,7 +29,10 @@ public class HomeScreen {
     private List<List<String>> info; //example data set pulled from API
     private String keyword;
 
-    public HomeScreen() throws IOException {
+    private MapController mapController;
+
+    public HomeScreen(MapController mapController) throws IOException {
+        this.mapController = mapController;
 
         info = new MapViewModel().getState().getArticles();
 
@@ -45,7 +49,11 @@ public class HomeScreen {
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                keyword = search.getText();
+                try {
+                    mapController.execute(search.getText());
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -158,13 +166,17 @@ public class HomeScreen {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                keyword = country;
+                try {
+                    mapController.execute(country);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
 
     public static void main(String[] args) throws IOException {
-        new HomeScreen();
+        new HomeScreen(new MapController());
 
     }
 }
