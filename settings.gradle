@@ -1,2 +1,4 @@
 rootProject.name = 'press'
+include 'src:main:Assets'
+findProject(':src:main:Assets')?.name = 'Assets'
 
