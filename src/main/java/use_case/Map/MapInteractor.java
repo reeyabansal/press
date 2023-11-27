@@ -1,9 +1,8 @@
 package use_case.Map;
 
-import DataAccess.NewsAPICountry;
+import data_access.NewsAPICountry;
 import entity.Article;
 import entity.ArticleFactory;
-import entity.CommonArticle;
 
 import java.util.List;
 import java.util.ArrayList;
