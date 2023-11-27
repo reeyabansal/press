@@ -12,8 +12,8 @@ public class FavouriteController {
         this.favouriteInteractor = favouriteInteractor;
     }
 
-    public void execute(List<String> article) {
-        FavouriteInputData favouriteInputData = new FavouriteInputData(article);
+    public void execute(List<String> article, String username) {
+        FavouriteInputData favouriteInputData = new FavouriteInputData(article, username);
 
         favouriteInteractor.execute(favouriteInputData);
     }
