@@ -82,7 +82,7 @@ public class HomeScreen {
 
         map = new JPanel();
         map.setPreferredSize(new Dimension(1200, 800));
-        JLabel imgLabel = new JLabel(new ImageIcon("/Users/saketrane/IdeaProjects/RoughGUI_press/src/map.png"));
+        JLabel imgLabel = new JLabel(new ImageIcon("assets/map.png"));
         imgLabel.setPreferredSize(new Dimension(1200, 500));
 
         JButton bCA = new JButton("CA");
