@@ -20,6 +20,7 @@ import java.util.List;
 
 public class HomeScreen {
 
+    public final String viewName = "sign up";
     private JPanel home;
     private JFrame app;
     private JTextField search;
