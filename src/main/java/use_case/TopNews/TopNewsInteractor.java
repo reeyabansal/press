@@ -14,13 +14,12 @@ public class TopNewsInteractor implements TopNewsInputBoundary {
     @Override
     public void execute(TopNewsInputData topNewsInputData) throws InterruptedException {
         NewsAPITop articleFactory = new NewsAPITop();
-        List<List<List<String>>> countriesArticles = new ArrayList<>();
+        List<List<String>> globalArticles = new ArrayList<>();
         List<Integer> totalResults = new ArrayList<>();
 
         for(String country:SUPPORTED_COUNTRIES.getSupportedCountriesList()) {
             // n = -1 indicates "get all articles"
             List<Article> articles = articleFactory.createArticles(country, -1);
-            List<List<String>> countryArticles = new ArrayList<>();
             // convert to string and extract select fields
             for (Article a: articles) {
                 List<String> x = new ArrayList<>();
@@ -30,15 +29,13 @@ public class TopNewsInteractor implements TopNewsInputBoundary {
                 x.add(a.getUrl());
                 x.add(a.getPublishedAt());
                 x.add(a.getAuthor());
-                countryArticles.add(x);
+                globalArticles.add(x);
             }
-            // articleInfo
-            countriesArticles.add(countryArticles);
             // totalResults
             totalResults.add(articleFactory.getTotalResults());
         }
 
-        TopNewsOutputData topNewsOutputData = new TopNewsOutputData(countriesArticles, totalResults);
+        TopNewsOutputData topNewsOutputData = new TopNewsOutputData(globalArticles, totalResults);
         topNewsOutputPresenter.prepareSuccessView(topNewsOutputData);
     }
 }
