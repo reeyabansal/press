@@ -35,11 +35,13 @@ public class TopNewsPresenter implements TopNewsOutputBoundary {
         int maxCircleSize = 60;
         int minCircleSize = 10;
         for (int articles : totalResults) {
-            double normalized = ((double) (articles - min) / (max - min)) *
+            double radius = ((double) (articles - min) / (max - min)) *
                     (maxCircleSize - minCircleSize) + minCircleSize;
-            int radius = (int) Math.sqrt(normalized);
-            sizes.add(radius);
+            sizes.add((int)radius);
         }
+//        System.out.println(totalResults);
+//        System.out.println(sizes);
+//        System.out.println(articleInfo);
 
         topNewsState.setSizes(sizes);
 

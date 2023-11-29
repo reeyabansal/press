@@ -30,7 +30,7 @@ public class NewsAPITop implements ArticleFactory {
      * articles exceeds the limit provided by NewsApi, the maximum number of articles is
      * provided instead. If the country is not in the list of supported countries
      * for the map, null is returned.
-     * @param country the country to have articles sourced from
+     * @param country the country to have articles sourced from; use null for global articles
      * @param number  the number of articles to create; negative one if it should be all of them
      */
     @Override
@@ -38,10 +38,15 @@ public class NewsAPITop implements ArticleFactory {
 
         // check if country is supported
         boolean supported = false;
-        for(String s : supportedCountries.keySet()) {
-            if(s.equals(country)) {
-                supported = true;
-                break;
+        if(country == null) {
+            supported = true;
+        }
+        else {
+            for(String s : supportedCountries.keySet()) {
+                if(s.equals(country)) {
+                    supported = true;
+                    break;
+                }
             }
         }
 

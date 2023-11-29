@@ -18,21 +18,23 @@ public class TopNewsInteractor implements TopNewsInputBoundary {
         List<Integer> totalResults = new ArrayList<>();
 
         for(String country:SUPPORTED_COUNTRIES.getSupportedCountriesList()) {
-            // n = -1 indicates "get all articles"
-            List<Article> articles = articleFactory.createArticles(country, -1);
-            // convert to string and extract select fields
-            for (Article a: articles) {
-                List<String> x = new ArrayList<>();
-                x.add(a.getTitle());
-                x.add(a.getImageUrl());
-                x.add(a.getDescription());
-                x.add(a.getUrl());
-                x.add(a.getPublishedAt());
-                x.add(a.getAuthor());
-                globalArticles.add(x);
-            }
+            //obtain the total results for this country (don't need the articles)
+            articleFactory.createArticles(country, 0);
             // totalResults
             totalResults.add(articleFactory.getTotalResults());
+        }
+        // use null for global top news articles
+        List<Article> articles = articleFactory.createArticles(null, -1);
+        // convert to string and extract select fields
+        for (Article a: articles) {
+            List<String> x = new ArrayList<>();
+            x.add(a.getTitle());
+            x.add(a.getImageUrl());
+            x.add(a.getDescription());
+            x.add(a.getUrl());
+            x.add(a.getPublishedAt());
+            x.add(a.getAuthor());
+            globalArticles.add(x);
         }
 
         TopNewsOutputData topNewsOutputData = new TopNewsOutputData(globalArticles, totalResults);
