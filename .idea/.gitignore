@@ -8,3 +8,6 @@
 /dataSources.local.xml
 
 username.txt
+out/
+.gradle/
+build/
