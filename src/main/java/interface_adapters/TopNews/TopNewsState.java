@@ -36,4 +36,7 @@ public class TopNewsState {
     public void setSizes(List<Integer> sizes) {
         this.sizes = sizes;
     }
+
+    // min 20
+    // max 60
 }
