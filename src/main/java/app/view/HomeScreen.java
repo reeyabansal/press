@@ -1,6 +1,7 @@
 package app.view;
 
 import interface_adapters.Map.MapController;
+import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
 
 import javax.imageio.ImageIO;
@@ -9,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeScreen {
+public class HomeScreen implements PropertyChangeListener {
 
     public final String viewName = "sign up";
     private JPanel home;
@@ -31,11 +34,14 @@ public class HomeScreen {
     private String keyword;
 
     private MapController mapController;
+    private MapViewModel viewModel;
 
-    public HomeScreen(MapController mapController) throws IOException {
+    public HomeScreen(/*MapController mapController, MapViewModel viewModel*/) throws IOException {
         this.mapController = mapController;
+        this.viewModel = viewModel;
+        viewModel.addPropertyChangeListener(this);
 
-        info = new MapViewModel().getState().getArticles();
+        info = viewModel.getState().getArticles();
 
 
         articles = new JButton[info.size()]; //making as many buttons as there are articles
@@ -188,7 +194,11 @@ public class HomeScreen {
     }
 
     public static void main(String[] args) throws IOException {
-        new HomeScreen(new MapController());
+        new HomeScreen(/*new MapController());*/);
+    }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        MapState state = (MapState) evt.getNewValue();
     }
 }
