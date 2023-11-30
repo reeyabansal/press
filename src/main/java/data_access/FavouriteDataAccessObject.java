@@ -1,11 +1,13 @@
 package data_access;
 
 import entity.Article;
+import use_case.Favourite.FavouriteDataAccessInterface;
+import use_case.SeeFavourites.SeeFavouritesDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FavouriteDataAccessObject {
+public class FavouriteDataAccessObject implements FavouriteDataAccessInterface, SeeFavouritesDataAccessInterface {
     private final String csvPath = "/assets/data/favourite_articles.csv";
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
