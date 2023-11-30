@@ -15,7 +15,7 @@ public class SeeFavouritesInteractor implements SeeFavouritesInputBoundary {
     public void execute(SeeFavouritesInputData seeFavouritesInputData) {
         List<List<String>> favourites = seeFavouritesDataAccessObject.getFavourites(seeFavouritesInputData.getUsername());
         if (favourites.isEmpty()) {
-            seeFavouritesPresenter.prepareFailView();
+            seeFavouritesPresenter.prepareFailView("Favourite articles could not be found.");
         } else {
             SeeFavouritesOutputData seeFavouritesOutputData = new SeeFavouritesOutputData(favourites);
             seeFavouritesPresenter.prepareSuccessView(seeFavouritesOutputData);
