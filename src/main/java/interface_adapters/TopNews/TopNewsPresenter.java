@@ -6,6 +6,7 @@ import use_case.TopNews.TopNewsOutputBoundary;
 import use_case.TopNews.TopNewsOutputData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TopNewsPresenter implements TopNewsOutputBoundary {
@@ -22,14 +23,25 @@ public class TopNewsPresenter implements TopNewsOutputBoundary {
 
         // Title, ImageURL, Description, URL, PublishedAt, Author
         // Gets the current viewModel state, updates it, and sets it again, then fires a property change
-        List<List<List<String>>> articleInfo = topNewsOutputData.getArticleInfo();
+        List<List<String>> articleInfo = topNewsOutputData.getArticleInfo();
 
         TopNewsState topNewsState = topNewsViewModel.getState();
         topNewsState.setArticleInfo(articleInfo);
 
         List<Integer> totalResults = topNewsOutputData.getTotalResults();
         List<Integer> sizes = new ArrayList<>();
-        // TODO: Calculate sizes of circles for each country; should be proportional to totalResults (more = bigger)
+        int max = Collections.max(totalResults);
+        int min = Collections.min(totalResults);
+        int maxCircleSize = 60;
+        int minCircleSize = 10;
+        for (int articles : totalResults) {
+            double radius = ((double) (articles - min) / (max - min)) *
+                    (maxCircleSize - minCircleSize) + minCircleSize;
+            sizes.add((int)radius);
+        }
+//        System.out.println(totalResults);
+//        System.out.println(sizes);
+//        System.out.println(articleInfo);
 
         topNewsState.setSizes(sizes);
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TopNewsState {
     // Title, ImageURL, Description, URL, PublishedAt, Author
-    List<List<List<String>>> articleInfo;
+    List<List<String>> articleInfo;
     List<Integer> totalResults;
     List<Integer> sizes;
 
@@ -13,11 +13,11 @@ public class TopNewsState {
         sizes = new ArrayList<>();
     }
 
-    public List<List<List<String>>> getArticleInfo() {
+    public List<List<String>> getArticleInfo() {
         return articleInfo;
     }
 
-    public void setArticleInfo(List<List<List<String>>> articleInfo) {
+    public void setArticleInfo(List<List<String>> articleInfo) {
         this.articleInfo = articleInfo;
     }
 
@@ -36,4 +36,7 @@ public class TopNewsState {
     public void setSizes(List<Integer> sizes) {
         this.sizes = sizes;
     }
+
+    // min 20
+    // max 60
 }

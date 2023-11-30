@@ -6,7 +6,9 @@ import java.util.List;
 public class MapState {
     // Title, ImageURL, Description, URL, PublishedAt, Author
     private List<List<String>> articles = new ArrayList<>();
-
+    private List<Integer> totalResults = new ArrayList<>();
+    private List<Integer> sizes = new ArrayList<>();
+    private boolean displayHotspots;
     public MapState() {
     }
 
@@ -17,5 +19,29 @@ public class MapState {
     public List<List<String>> getArticles() {
         // Title, ImageURL, Description, URL, PublishedAt, Author
         return articles;
+    }
+
+    public void setTotalResults(List<Integer> totalResults) {
+        this.totalResults = totalResults;
+    }
+
+    public List<Integer> getTotalResults() {
+        return totalResults;
+    }
+
+    public boolean getDisplayHotspots() {
+        return displayHotspots;
+    }
+
+    public void setDisplayHotspots(boolean displayHotspots) {
+        this.displayHotspots = displayHotspots;
+    }
+
+    public List<Integer> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<Integer> sizes) {
+        this.sizes = sizes;
     }
 }
