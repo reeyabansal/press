@@ -1,10 +1,8 @@
 package data_access;
 
 import entity.Article;
-import entity.User;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class FavouriteDataAccessObject {
@@ -76,7 +74,7 @@ public class FavouriteDataAccessObject {
         }
     }
 
-    public void addFavourite(String username, List<String> article) {
+    public void addFavourite(List<String> article, String username) {
         List<String> fullDetails = new ArrayList<>();
         fullDetails.add(username);
         fullDetails.addAll(article);
