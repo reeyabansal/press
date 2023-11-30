@@ -11,8 +11,8 @@ public class HistoryController {
         this.historyInteractor = historyInteractor;
     }
 
-    public void execute(List<String> article) {
-        HistoryInputData historyInputData = new HistoryInputData(article);
+    public void execute(List<String> article, String username) {
+        HistoryInputData historyInputData = new HistoryInputData(article, username);
 
         historyInteractor.execute(historyInputData);
     }

@@ -32,9 +32,11 @@ public class HistoryDataAccessObject {
             // Loops over lines till another user's data is reached
             assert line != null;
             ArrayList<String> userArticleData = new ArrayList<>(Arrays.asList(line.split(",")));
-            while (line != null && Objects.equals(userArticleData.get(0), username)) {
+            while (Objects.equals(userArticleData.get(0), username)) {
                 articlesHistory.add(userArticleData.subList(1,userArticleData.size()));
                 line = reader.readLine();
+                if (line == null)
+                    break;
                 userArticleData = new ArrayList<>(Arrays.asList(line.split(",")));
             }
         } catch (IOException e) {
@@ -43,8 +45,21 @@ public class HistoryDataAccessObject {
         return articlesHistory;
     }
 
-    public void updateHistory(String username, List<String> article){
-        
+    public static void main(String[] args) {
+        HistoryDataAccessObject obj = new HistoryDataAccessObject();
+        List<List<String>> articles = obj.getHistory("reeya");
+
     }
+
+//    public void updateHistory(String username, List<String> article) {
+//        try (BufferedReader reader = new BufferedReader(new FileReader(csv_file))) {
+//            String header = reader.readLine();
+//            String line = reader.readLine();
+//
+//        }
+//        catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 }
