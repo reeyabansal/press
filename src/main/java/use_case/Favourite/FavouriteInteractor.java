@@ -13,10 +13,7 @@ public class FavouriteInteractor implements  FavouriteInputBoundary {
 
     @Override
     public void execute(FavouriteInputData favouriteInputData) {
-        final
-
         // favouriteInputData has to be stored through data_access
-        FavouriteDataAccessObject favouriteDataAccessObject = new FavouriteDataAccessObject();
         favouriteDataAccessObject.addFavourite(favouriteInputData.getArticle(), favouriteInputData.getUsername());
     }
 }
