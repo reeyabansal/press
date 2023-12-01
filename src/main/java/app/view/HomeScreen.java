@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeScreen implements PropertyChangeListener {
+public class HomeScreen extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "sign up";
     private JPanel home;
@@ -200,5 +200,10 @@ public class HomeScreen implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         MapState state = (MapState) evt.getNewValue();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
