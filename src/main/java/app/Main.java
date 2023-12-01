@@ -38,10 +38,10 @@ public class Main {
 //            throw new RuntimeException(e);
 //        }
 
-        MapController mapController = new MapController();
+        //MapController mapController = new MapController();
 
-        HomeScreen homeScreen = new HomeScreen();
-        views.add(homeScreen, homeScreen.viewName);
+        /*HomeScreen homeScreen = new HomeScreen();
+        views.add(homeScreen, homeScreen.viewName);*/
 
 
         application.pack();

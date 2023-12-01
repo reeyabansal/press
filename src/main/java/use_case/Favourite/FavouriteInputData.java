@@ -14,4 +14,8 @@ public class FavouriteInputData {
     public List<String> getArticle() {
         return article;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }
