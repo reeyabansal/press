@@ -58,6 +58,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         return accounts.containsKey(identifier);
     }
 
+
+    @Override
+    public boolean existsByEmail(String identifier) {
+        return accounts.containsKey(identifier);    }
+
     @Override
     public void save(User user) {
         accounts.put(user.getEmail(), user);
