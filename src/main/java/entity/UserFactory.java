@@ -1,10 +1,8 @@
 package entity;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 
-public class UserFactory {
-    public User create(String name, String email, String password, ArrayList<String> userHistory) {
-        return new User(name, email, password, userHistory);
-    }
-
+public interface UserFactory {
+    /** Requires: password is valid. */
+    User create(String email, String password, LocalDateTime ltd);
 }
