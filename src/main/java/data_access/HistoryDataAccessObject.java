@@ -1,5 +1,7 @@
 package data_access;
 
+import use_case.History.HistoryDataAccessInterface;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.*;
 
-public class HistoryDataAccessObject {
+public class HistoryDataAccessObject implements HistoryDataAccessInterface {
     private final String csvPath = "/assets/data/visited_articles.csv";
     private final File csvFile;
 

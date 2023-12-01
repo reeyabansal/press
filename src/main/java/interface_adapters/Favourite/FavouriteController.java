@@ -14,7 +14,6 @@ public class FavouriteController {
 
     public void execute(List<String> article, String username) {
         FavouriteInputData favouriteInputData = new FavouriteInputData(article, username);
-
         favouriteInteractor.execute(favouriteInputData);
     }
 }

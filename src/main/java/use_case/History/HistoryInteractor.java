@@ -1,13 +1,17 @@
 package use_case.History;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class HistoryInteractor implements HistoryInputBoundary{
+
+    final HistoryDataAccessInterface historyDataAccessObject;
+
+    public HistoryInteractor(HistoryDataAccessInterface historyDataAccessObject) {
+        this.historyDataAccessObject = historyDataAccessObject;
+    }
+
+    //    final FavouriteOutputBoundary favouritePresenter;
     @Override
     public void execute(HistoryInputData historyInputData) {
-
+        historyDataAccessObject.addToHistory(historyInputData.getArticle(), historyInputData.getUsername());
     }
 }
