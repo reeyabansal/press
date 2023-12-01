@@ -89,7 +89,7 @@ public class FavouriteDataAccessObject implements FavouriteDataAccessInterface, 
         List<List<String>> favouriteArticles = new ArrayList<>();
         for (List<String> articleDetails: favourites) {
             if (articleDetails.get(0).equals(username)) {
-                favouriteArticles.add(articleDetails);
+                favouriteArticles.add(articleDetails.subList(1, articleDetails.size()));
             }
         }
         return favouriteArticles;
