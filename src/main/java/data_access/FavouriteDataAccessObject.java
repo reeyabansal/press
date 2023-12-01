@@ -13,7 +13,7 @@ public class FavouriteDataAccessObject implements FavouriteDataAccessInterface, 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final List<List<String>> favourites = new ArrayList<>();
 
-    public FavouriteDataAccessObject() {
+    public FavouriteDataAccessObject() throws IOException {
         csvFile = new File(csvPath);
 
         headers.put("username", 0);

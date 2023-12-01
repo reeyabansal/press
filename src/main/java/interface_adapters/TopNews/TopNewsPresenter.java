@@ -49,7 +49,7 @@ public class TopNewsPresenter implements TopNewsOutputBoundary {
         topNewsViewModel.firePropertyChanged();
 
         // Fires a property change for the viewManagerModel
-        viewManagerModel.setActiveViewName(topNewsViewModel.getViewName());
+        viewManagerModel.setActiveView(topNewsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

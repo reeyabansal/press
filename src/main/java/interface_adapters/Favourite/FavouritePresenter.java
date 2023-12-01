@@ -1,4 +1,6 @@
 package interface_adapters.Favourite;
 
-public class FavouritePresenter {
+import use_case.Favourite.FavouriteOutputBoundary;
+
+public class FavouritePresenter implements FavouriteOutputBoundary {
 }

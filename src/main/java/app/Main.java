@@ -1,8 +1,13 @@
 package app;
 
 import app.view.HomeScreen;
+import data_access.FavouriteDataAccessObject;
+import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapViewModel;
+import interface_adapters.Search.SearchViewModel;
+import interface_adapters.SeeFavourites.SeeFavouritesViewModel;
+import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
 
 import javax.swing.*;
@@ -25,11 +30,17 @@ public class Main {
         application.add(views);
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+        // TODO: Implement ViewManager
 //        new ViewManager(views, cardLayout, viewManagerModel);
 
-        // Add all view models
+        // TODO: Add all view models
         MapViewModel mapViewModel = new MapViewModel();
+        TopNewsViewModel topNewsViewModel = new TopNewsViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
+        FavouriteViewModel favouriteViewModel = new FavouriteViewModel();
+        SeeFavouritesViewModel seeFavouritesViewModel = new SeeFavouritesViewModel();
 
+        // TODO: Make user and history data access objects
 
 //        FileUserDataAccessObject userDataAccessObject;
 //        try {
@@ -38,11 +49,20 @@ public class Main {
 //            throw new RuntimeException(e);
 //        }
 
-        //MapController mapController = new MapController();
+        FavouriteDataAccessObject favouriteDataAccessObject;
+        try {
+            favouriteDataAccessObject = new FavouriteDataAccessObject();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        /*HomeScreen homeScreen = new HomeScreen();
-        views.add(homeScreen, homeScreen.viewName);*/
+        // TODO: Make factories and add to views
+        HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, favouriteDataAccessObject);
+        views.add(homeScreen, homeScreen.viewName);
 
+
+        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
