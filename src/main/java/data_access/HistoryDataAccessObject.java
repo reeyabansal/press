@@ -21,7 +21,7 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, SeeH
     private final List<List<String>> visited = new ArrayList<>();
 
 
-    public HistoryDataAccessObject() {
+    public HistoryDataAccessObject() throws IOException {
         csvFile = new File(csvPath);
 
         headers.put("username", 0);
