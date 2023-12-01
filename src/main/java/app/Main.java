@@ -2,11 +2,14 @@ package app;
 
 import app.view.HomeScreen;
 import data_access.FavouriteDataAccessObject;
+import data_access.HistoryDataAccessObject;
 import interface_adapters.Favourite.FavouriteViewModel;
+import interface_adapters.History.HistoryViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchViewModel;
 import interface_adapters.SeeFavourites.SeeFavouritesViewModel;
+import interface_adapters.SeeHistory.SeeHistoryViewModel;
 import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
 
@@ -39,8 +42,10 @@ public class Main {
         SearchViewModel searchViewModel = new SearchViewModel();
         FavouriteViewModel favouriteViewModel = new FavouriteViewModel();
         SeeFavouritesViewModel seeFavouritesViewModel = new SeeFavouritesViewModel();
+        HistoryViewModel historyViewModel = new HistoryViewModel();
+        SeeHistoryViewModel seeHistoryViewModel = new SeeHistoryViewModel();
 
-        // TODO: Make user and history data access objects
+        // TODO: Make user data access objects
 
 //        FileUserDataAccessObject userDataAccessObject;
 //        try {
@@ -56,13 +61,20 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        HistoryDataAccessObject historyDataAccessObject;
+        try {
+            historyDataAccessObject = new HistoryDataAccessObject();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         // TODO: Make factories and add to views
-        HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, favouriteDataAccessObject);
+        HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, favouriteDataAccessObject, historyDataAccessObject);
         views.add(homeScreen, homeScreen.viewName);
 
 
-        viewManagerModel.setActiveView(signupView.viewName);
-        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setActiveView(signupView.viewName);
+//        viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
