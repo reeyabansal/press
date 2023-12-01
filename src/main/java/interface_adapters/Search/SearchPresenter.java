@@ -26,7 +26,7 @@ public class SearchPresenter implements SearchOutputBoundary {
         searchViewModel.firePropertyChanged();
 
         // Fires a property change for the viewManagerModel
-        viewManagerModel.setActiveViewName(searchViewModel.getViewName());
+        viewManagerModel.setActiveView(searchViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
     }

@@ -26,7 +26,7 @@ public class MapPresenter implements MapOutputBoundary {
         mapViewModel.firePropertyChanged();
 
         // Fires a property change for the viewManagerModel
-        viewManagerModel.setActiveViewName(mapViewModel.getViewName());
+        viewManagerModel.setActiveView(mapViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }
