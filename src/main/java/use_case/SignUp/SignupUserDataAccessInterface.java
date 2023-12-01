@@ -6,4 +6,6 @@ public interface SignupUserDataAccessInterface {
     boolean existsbyEmail(String identifier);
 
     void save(User user);
+
+    User get(String email);
 }
