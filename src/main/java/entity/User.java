@@ -1,44 +1,12 @@
 package entity;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 
-public class User {
+public interface User {
 
-    private final String name;
-    private final String email;
-    private final String password;
-    private ArrayList<String> userHistory;
+    String getEmail();
 
-    /**
-     * @param name name of the user
-     * @param email email of the user
-     * @param password password of the user
-     * @param userHistory last 10 articles viewed by the user
-     */
+    String getPassword();
 
-
-    User(String name, String email, String password, ArrayList<String> userHistory) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.userHistory = userHistory;
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public ArrayList<String> getUserHistory() {
-        return userHistory;
-    }
-
+    LocalDateTime getCreationTime();
 }
