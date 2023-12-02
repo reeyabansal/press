@@ -1,20 +1,19 @@
 package app;
 
-import app.view.HomeScreen;
 import data_access.FavouriteDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryViewModel;
-import interface_adapters.Login.LoginViewModel;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchViewModel;
 import interface_adapters.SeeFavourites.SeeFavouritesViewModel;
 import interface_adapters.SeeHistory.SeeHistoryViewModel;
-import interface_adapters.Signup.SignupViewModel;
 import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
+import view.HomeScreen;
+import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,9 +35,9 @@ public class Main {
         application.add(views);
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        // TODO: Implement ViewManager
-//        new ViewManager(views, cardLayout, viewManagerModel);
+        new ViewManager(views, cardLayout, viewManagerModel);
 
+        // TODO: Add all view models
         MapViewModel mapViewModel = new MapViewModel();
         TopNewsViewModel topNewsViewModel = new TopNewsViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
@@ -46,9 +45,8 @@ public class Main {
         SeeFavouritesViewModel seeFavouritesViewModel = new SeeFavouritesViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
         SeeHistoryViewModel seeHistoryViewModel = new SeeHistoryViewModel();
-        LoginViewModel loginViewModel = new LoginViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
 
+        // TODO: Make user data access objects
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -74,6 +72,7 @@ public class Main {
         // TODO: Make factories and add to views
         HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, favouriteDataAccessObject, historyDataAccessObject);
         views.add(homeScreen, homeScreen.viewName);
+
 
 //        viewManagerModel.setActiveView(signupView.viewName);
 //        viewManagerModel.firePropertyChanged();

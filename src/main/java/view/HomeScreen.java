@@ -1,4 +1,4 @@
-package app.view;
+package view;
 
 import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
