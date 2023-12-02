@@ -1,8 +1,8 @@
 package use_case.Search;
 
-import data_access.NewsAPICountry;
 import entity.Article;
 import entity.ArticleFactory;
+import entity.KeywordArticleFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ public class SearchInteractor implements SearchInputBoundary{
     }
 
     public void execute(SearchInputData searchInputData) throws InterruptedException{
-        ArticleFactory articleFactory = new NewsAPICountry();
+        ArticleFactory articleFactory = new KeywordArticleFactory(searchInputData.getCountryName());
 
         // n = -1 indicates "get all articles"
-        List<Article> articles = articleFactory.createArticles(searchInputData.getCountryName(), -1);
+        List<Article> articles = articleFactory.createArticles(-1);
         List<List<String>> output = new ArrayList<>();
         for (Article a: articles) {
             List<String> x = new ArrayList<>();

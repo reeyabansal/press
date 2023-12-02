@@ -1,7 +1,8 @@
 package use_case.TopNews;
 
-import data_access.NewsAPITop;
 import entity.Article;
+import entity.ArticleFactory;
+import entity.TopNewsArticleFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +14,19 @@ public class TopNewsInteractor implements TopNewsInputBoundary {
     }
     @Override
     public void execute(TopNewsInputData topNewsInputData) throws InterruptedException {
-        NewsAPITop articleFactory = new NewsAPITop();
         List<List<String>> globalArticles = new ArrayList<>();
         List<Integer> totalResults = new ArrayList<>();
 
         for(String country:SUPPORTED_COUNTRIES.getSupportedCountriesList()) {
+            ArticleFactory articleFactory = new TopNewsArticleFactory(country);
             //obtain the total results for this country (don't need the articles)
-            articleFactory.createArticles(country, 0);
+            articleFactory.createArticles(0);
             // totalResults
-            totalResults.add(articleFactory.getTotalResults());
+            totalResults.add((Integer) articleFactory.getComputedData().get(0));
         }
         // use null for global top news articles
-        List<Article> articles = articleFactory.createArticles(null, -1);
+        ArticleFactory articleFactory = new TopNewsArticleFactory(null);
+        List<Article> articles = articleFactory.createArticles(-1);
         // convert to string and extract select fields
         for (Article a: articles) {
             List<String> x = new ArrayList<>();

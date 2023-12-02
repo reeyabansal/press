@@ -1,8 +1,8 @@
 package use_case.Map;
 
-import data_access.NewsAPICountry;
 import entity.Article;
 import entity.ArticleFactory;
+import entity.KeywordArticleFactory;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ public class MapInteractor implements MapInputBoundary{
     }
 
     public void execute(MapInputData mapInputData) throws InterruptedException {
-        ArticleFactory articleFactory = new NewsAPICountry();
+        ArticleFactory articleFactory = new KeywordArticleFactory(mapInputData.getCountryName());
 
         // n = -1 indicates "get all articles"
-        List<Article> articles = articleFactory.createArticles(mapInputData.getCountryName(), -1);
+        List<Article> articles = articleFactory.createArticles(-1);
         List<List<String>> output = new ArrayList<>();
         for (Article a: articles) {
             List<String> x = new ArrayList<>();
