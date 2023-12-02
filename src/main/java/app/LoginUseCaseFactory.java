@@ -1,5 +1,7 @@
 package app;
 
+import interface_adapters.LoggedIn.LoggedInState;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import view.LoginScreen;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -24,7 +26,7 @@ public class LoginUseCaseFactory {
     public static LoginScreen create(
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
-            TopNewsViewModel loggedInViewModel,
+            LoggedInViewModel loggedInViewModel,
             LoginUserDataAccessInterface userDataAccessObject) {
 
         try {
@@ -40,7 +42,7 @@ public class LoginUseCaseFactory {
     private static LoginController createLoginUseCase(
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
-            TopNewsViewModel loggedInViewModel,
+            LoggedInViewModel loggedInViewModel,
             LoginUserDataAccessInterface userDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.

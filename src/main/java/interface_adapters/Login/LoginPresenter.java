@@ -1,5 +1,7 @@
 package interface_adapters.Login;
 
+import interface_adapters.LoggedIn.LoggedInState;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.TopNews.TopNewsState;
 import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
@@ -9,11 +11,11 @@ import use_case.LogIn.LoginOutputData;
 public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
-    private final TopNewsViewModel loggedInViewModel;
+    private final LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                          TopNewsViewModel loggedInViewModel,
+                          LoggedInViewModel loggedInViewModel,
                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
@@ -24,7 +26,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the logged in view.
 
-        TopNewsState loggedInState = loggedInViewModel.getState();
+        LoggedInState loggedInState = loggedInViewModel.getState();
         // TODO: we give the top news model the email:
         // loggedInState.setEmail(response.getEmail());
         this.loggedInViewModel.setState(loggedInState);
