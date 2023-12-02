@@ -1,8 +1,11 @@
 package data_access;
 
-import java.util.List;
+import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 
-public interface NewsAPITemplateDataAccessObject {
-    List<com.kwabenaberko.newsapilib.models.Article> getData(String parameter, int number);
+public interface NewsAPIDataAccessObject {
+
+    // should only be called after getData was called with a parameter
+    ArticleResponse getData();
+    ArticleResponse getData(String parameter);
     boolean isReady();
 }
