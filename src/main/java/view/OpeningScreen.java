@@ -25,7 +25,6 @@ public class OpeningScreen extends JFrame implements ActionListener {
         app.setLayout(null);
 
 
-
         title = new JLabel("PRESS");
         title.setBounds(420, 300, 400, 100);
         title.setFont(new Font("Verdana", Font.BOLD, 100));
@@ -49,7 +48,7 @@ public class OpeningScreen extends JFrame implements ActionListener {
 
         app.add(title);
         app.add(description);
-        app.add(loginBtn);
+        // app.add(loginBtn);
         app.add(createAccBtn);
         app.getContentPane().setBackground(Color.white);
 
@@ -57,14 +56,22 @@ public class OpeningScreen extends JFrame implements ActionListener {
         app.setTitle("Press");
         app.setVisible(true);
 
-    }
+        createAccBtn.addActionListener(this);
 
-    public static void main(String[] args) throws IOException {
-        new OpeningScreen();
 
     }
 
     @Override
+    public void actionPerformed(ActionEvent evt) {
+
+    }
+
+    /*public static void main(String[] args) throws IOException {
+        new OpeningScreen();
+
+    }*/
+
+    /*@Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == createAccBtn) {
             new SignupScreen();
@@ -78,5 +85,5 @@ public class OpeningScreen extends JFrame implements ActionListener {
 
         }
 
-    }
+    }*/
 }
