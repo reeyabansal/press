@@ -1,6 +1,5 @@
 package app;
 
-import app.view.HomeScreen;
 import data_access.FavouriteDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import interface_adapters.Favourite.FavouriteController;
@@ -46,6 +45,7 @@ import use_case.SeeHistory.SeeHistoryOutputBoundary;
 import use_case.TopNews.TopNewsInputBoundary;
 import use_case.TopNews.TopNewsInteractor;
 import use_case.TopNews.TopNewsOutputBoundary;
+import view.HomeScreen;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -61,12 +61,11 @@ public class HomeScreenFactory {
             HistoryController historyController = createHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject);
             SeeHistoryController seeHistoryController = createSeeHistoryUseCase(viewManagerModel, seeHistoryViewModel, historyDataAccessObject);
 
-            return new HomeScreen(mapController, topNewsController, searchController, favouriteController, seeFavouritesController, historyController, seeHistoryController, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel);
+            // TODO: Add attributes
+            return new HomeScreen();
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error occurred.");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
 
         return null;

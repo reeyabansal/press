@@ -1,6 +1,6 @@
 package app;
 
-import app.view.SignupScreen;
+import view.SignupScreen;
 import interface_adapters.Login.LoginViewModel;
 import interface_adapters.Signup.SignupController;
 import interface_adapters.Signup.SignupPresenter;

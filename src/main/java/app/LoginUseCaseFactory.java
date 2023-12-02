@@ -1,6 +1,6 @@
 package app;
 
-import app.view.LoginScreen;
+import view.LoginScreen;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapters.Login.LoginController;
