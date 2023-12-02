@@ -1,13 +1,22 @@
 package view;
 import interface_adapters.Signup.SignupController;
+import interface_adapters.Signup.SignupState;
 import interface_adapters.Signup.SignupViewModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 
 public class SignupScreen extends JFrame implements ActionListener {
+
+    public final String viewName = "sign up";
+
+    private final SignupViewModel signupViewModel;
+    private final SignupController signupController;
 
     private JPasswordField passwordField, repeatPasswordField;
     private JTextField emailField;
@@ -17,7 +26,11 @@ public class SignupScreen extends JFrame implements ActionListener {
     private JPanel home;
 
 
-    public SignupScreen() {
+    public SignupScreen(SignupController signupController, SignupViewModel signupViewModel) {
+
+        this.signupController = signupController;
+        this.signupViewModel = signupViewModel;
+
         app = new JFrame();
         home = new JPanel();
         // home.setLayout(new FlowLayout());
@@ -67,33 +80,98 @@ public class SignupScreen extends JFrame implements ActionListener {
         // app.pack();
         app.setVisible(true);
 
-    }
+        signUpBtn.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(signUpBtn)) {
+                            SignupState currentState = signupViewModel.getState();
 
-    public SignupScreen(SignupController signupController, SignupViewModel signupViewModel) {
-    }
+                            signupController.execute(
+                                    currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getRepeatPassword()
+                            );
+                        }
+                    }
+                }
+        );
 
-    public static void main(String[] args) throws IOException {
-        new SignupScreen();
+        emailField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        String text = emailField.getText() + e.getKeyChar();
+                        currentState.setEmail(text);
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
+        passwordField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        currentState.setPassword(passwordField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
+
+        repeatPasswordField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        currentState.setRepeatPassword(repeatPasswordField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState); // Hmm, is this necessary?
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
+
 
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == logInBtn) {
-            new LoginScreen();
-            app.dispose();
-
-        }
-
-        if (evt.getSource() == signUpBtn) {
-            try {
-                new HomeScreen();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            app.dispose();
-
-        }
 
     }
+
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        SignupState state = (SignupState) evt.getNewValue();
+        if (state.getUsernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        }
+    }
+
 }
