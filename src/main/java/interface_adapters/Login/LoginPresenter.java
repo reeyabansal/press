@@ -27,8 +27,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         // On success, switch to the logged in view.
 
         LoggedInState loggedInState = loggedInViewModel.getState();
-        // TODO: we give the top news model the email:
-        // loggedInState.setEmail(response.getEmail());
+        loggedInState.setUsername(response.getEmail());
         this.loggedInViewModel.setState(loggedInState);
         this.loggedInViewModel.firePropertyChanged();
 
