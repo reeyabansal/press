@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class ArticleFactoryTemplate {
+public abstract class ArticleFactoryTemplate implements ArticleFactory {
     protected String parameter;
     protected NewsAPIDataAccessObject dataAccessObject;
     protected List<Article> articleList;
