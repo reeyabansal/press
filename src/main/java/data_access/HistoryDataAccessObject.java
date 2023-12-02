@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 
 public class HistoryDataAccessObject implements HistoryDataAccessInterface, SeeHistoryDataAccessInterface {
-    private final String csvPath = "/assets/data/visited_articles.csv";
+    private final String csvPath = "./visited_articles.csv";
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();

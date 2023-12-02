@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.*;
 
 public class FavouriteDataAccessObject implements FavouriteDataAccessInterface, SeeFavouritesDataAccessInterface {
-    private final String csvPath = "/assets/data/favourite_articles.csv";
+    private final String csvPath = "./favourite_articles.csv";
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final List<List<String>> favourites = new ArrayList<>();
