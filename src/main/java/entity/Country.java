@@ -1,7 +1,5 @@
 package entity;
 
-import data_access.NewsAPICountry;
-
 import java.util.ArrayList;
 
 public class Country {
@@ -15,8 +13,7 @@ public class Country {
     }
 
     public void Setarticles(){
-        NewsAPICountry news = new NewsAPICountry();
-//        Updated create method to get n articles at once to reduce number of api calls; review later.
+
     }
     public ArrayList<Article> Getarticles(){
         return this.articles;

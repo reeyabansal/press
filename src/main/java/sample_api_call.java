@@ -1,4 +1,3 @@
-import data_access.NewsAPITop;
 import com.kwabenaberko.newsapilib.*;
 import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
@@ -6,38 +5,9 @@ import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
 
-import java.util.List;
-import data_access.NewsAPICountry;
-import entity.Article;
-
 public class sample_api_call {
     public static void main(String[] args) throws InterruptedException {
 
-        // instantiate the factory class
-        NewsAPICountry c = new NewsAPICountry();
-
-        // create two articles about canada and store them
-        List<Article> articles = c.createArticles("Canada", 2);
-
-        // can also get the articles later
-        List<Article> articles2 = c.getArticleList();
-
-        // do operations with them
-        System.out.println(articles.get(0).getTitle());
-        System.out.println(c);
-        System.out.print(articles);
-        System.out.println(articles.size());
-        System.out.println(articles.get(0).getUrl());
-
-        System.out.println("newsapitop");
-        NewsAPITop d = new NewsAPITop();
-        List<Article> top = d.createArticles("Canada", 2);
-        System.out.println(top.get(0).getTitle());
-        System.out.println(d.getTotalResults());
-
-        top = d.createArticles("China", 3);
-        System.out.println(top.get(0).getTitle());
-        System.out.println(d.getTotalResults());
 
         // example API calls with the NewsApiClient directly
         // IMPORTANT: set environment variable with API_KEY=YOUR_API_KEY_HERE in run configurations
