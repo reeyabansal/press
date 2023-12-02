@@ -1,8 +1,12 @@
 package app.view;
 
+import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
+import interface_adapters.Search.SearchController;
+import interface_adapters.SeeFavourites.SeeFavouritesController;
+import interface_adapters.TopNews.TopNewsController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -36,12 +40,12 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private MapController mapController;
     private MapViewModel viewModel;
 
-    public HomeScreen(/*MapController mapController, MapViewModel viewModel*/) throws IOException {
+    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController) throws IOException {
         this.mapController = mapController;
         this.viewModel = viewModel;
-        viewModel.addPropertyChangeListener(this);
+        this.viewModel.addPropertyChangeListener(this);
 
-        info = viewModel.getState().getArticles();
+        info = this.viewModel.getState().getArticles();
 
 
         articles = new JButton[info.size()]; //making as many buttons as there are articles
@@ -214,11 +218,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         });
     }
 
-    public static void main(String[] args) throws IOException {
-        new HomeScreen(/*new MapController());*/);
-    }
-
-    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         MapState state = (MapState) evt.getNewValue();
     }
