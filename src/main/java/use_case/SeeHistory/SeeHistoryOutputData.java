@@ -8,6 +8,11 @@ public class SeeHistoryOutputData {
         this.visited = visited;
     }
 
+    /**
+     *
+     * @return visited
+     * Getter method for visited attribute
+     */
     public List<List<String>> getVisited() {
         return visited;
     }

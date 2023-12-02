@@ -1,13 +1,22 @@
 package view;
 import interface_adapters.Login.LoginController;
+import interface_adapters.Login.LoginState;
 import interface_adapters.Login.LoginViewModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
 import java.io.IOException;
 
 public class LoginScreen extends JFrame implements ActionListener {
+
+    public final String viewName = "log in";
+    private final LoginViewModel loginViewModel;
+
+    private final LoginController loginController;
 
     private JPasswordField passwordField;
     private JTextField emailField;
@@ -17,7 +26,11 @@ public class LoginScreen extends JFrame implements ActionListener {
     private JPanel home;
 
 
-    public LoginScreen() {
+    public LoginScreen(LoginViewModel loginViewModel, LoginController loginController) {
+
+        this.loginController = loginController;
+        this.loginViewModel = loginViewModel;
+
         app = new JFrame();
         home = new JPanel();
         // home.setLayout(new FlowLayout());
@@ -47,9 +60,9 @@ public class LoginScreen extends JFrame implements ActionListener {
         signUpBtn.setBounds(610, 420, 120, 40);
         signUpBtn.addActionListener(this);
 
-        logInBtn = new JButton("Log-in");
+        /*logInBtn = new JButton("Log-in");
         logInBtn.setBounds(500, 420, 100, 40);
-        logInBtn.addActionListener(this);
+        logInBtn.addActionListener(this);*/
 
 
         app.add(label_email);
@@ -63,29 +76,71 @@ public class LoginScreen extends JFrame implements ActionListener {
         // app.pack();
         app.setVisible(true);
 
+        logInBtn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logInBtn)) {
+                            LoginState currentState = loginViewModel.getState();
+
+                            loginController.execute(
+                                    currentState.getEmail(),
+                                    currentState.getPassword()
+                            );
+                        }
+                    }
+                }
+        );
+
+        emailField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                LoginState currentState = loginViewModel.getState();
+                currentState.setEmail(emailField.getText() + e.getKeyChar());
+                loginViewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        passwordField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        LoginState currentState = loginViewModel.getState();
+                        currentState.setPassword(passwordField.getText() + e.getKeyChar());
+                        loginViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
     }
 
-    public LoginScreen(LoginViewModel loginViewModel, LoginController loginController) {
-
-    }
-
-    public static void main(String[] args) throws IOException {
-        new LoginScreen();
-
-    }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == signUpBtn) {
-            new SignupScreen();
-            app.dispose();
 
-        }
+    }
 
-        if (evt.getSource() == logInBtn) {
-            new HomeScreen();
-            app.dispose();
+    public void propertyChange(PropertyChangeEvent evt) {
+        LoginState state = (LoginState) evt.getNewValue();
+        setFields(state);
+    }
 
-        }
+    private void setFields(LoginState state) {
+        emailField.setText(state.getEmail());
     }
 }

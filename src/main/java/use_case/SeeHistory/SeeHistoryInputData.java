@@ -5,6 +5,12 @@ public class SeeHistoryInputData {
     public SeeHistoryInputData(String username) {
         this.username = username;
     }
+
+    /**
+     *
+     * @return username
+     * Getter method for username attribute
+     */
     public String getUsername() {
         return username;
     }

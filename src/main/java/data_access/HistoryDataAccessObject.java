@@ -21,6 +21,11 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, SeeH
     private final List<List<String>> visited = new ArrayList<>();
 
 
+    /**
+     *
+     * @throws IOException
+     * With the csvPath, this constructor creates an empty file, adds the required headers and rewrites all existing data to it
+     */
     public HistoryDataAccessObject() throws IOException {
         csvFile = new File(csvPath);
 
@@ -75,6 +80,12 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, SeeH
         }
     }
 
+    /**
+     *
+     * @param article
+     * @param username
+     * Adds the visited article to the csvFile with the corresponding username
+     */
     public void addToHistory(List<String> article, String username) {
         List<String> fullDetails = new ArrayList<>();
         fullDetails.add(username);
@@ -84,6 +95,12 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, SeeH
         this.save();
     }
 
+    /**
+     *
+     * @param username
+     * @return visitedArticles
+     * Returns all articles visited by the current user
+     */
     public List<List<String>> getHistory(String username) {
         List<List<String>> visitedArticles = new ArrayList<>();
         for (List<String> articleDetails : visited) {

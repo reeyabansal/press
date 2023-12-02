@@ -18,10 +18,18 @@ public class SeeHistoryViewModel extends ViewModel {
         super("seeHistory");
     }
 
+    /**
+     *
+     * @return
+     */
     public SeeHistoryState getState() {
         return state;
     }
 
+    /**
+     *
+     * @param seeHistoryState
+     */
     public void setState(SeeHistoryState seeHistoryState) {
         this.state = seeHistoryState;
     }
@@ -30,6 +38,10 @@ public class SeeHistoryViewModel extends ViewModel {
         support.firePropertyChange("seeHistoryState", null, this.state);
     }
 
+    /**
+     *
+     * @param listener
+     */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
