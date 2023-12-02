@@ -1,4 +1,7 @@
 package app.view;
+import interface_adapters.Signup.SignupController;
+import interface_adapters.Signup.SignupViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -65,6 +68,9 @@ public class SignupScreen extends JFrame implements ActionListener {
         // app.pack();
         app.setVisible(true);
 
+    }
+
+    public SignupScreen(SignupController signupController, SignupViewModel signupViewModel) {
     }
 
     public static void main(String[] args) throws IOException {

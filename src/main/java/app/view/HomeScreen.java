@@ -179,6 +179,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     }
 
+
     public void makeClick(String urlString, JButton button){
 
         button.addActionListener(new ActionListener() {
