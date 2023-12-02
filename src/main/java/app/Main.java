@@ -1,11 +1,9 @@
 package app;
 
-import app.view.HomeScreen;
 import data_access.FavouriteDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryViewModel;
-import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchViewModel;
 import interface_adapters.SeeFavourites.SeeFavouritesViewModel;

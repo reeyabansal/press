@@ -1,6 +1,5 @@
 package app;
 
-import app.view.HomeScreen;
 import data_access.FavouriteDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import interface_adapters.Favourite.FavouriteController;
