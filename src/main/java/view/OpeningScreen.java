@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class OpeningScreen extends JFrame implements ActionListener {
-
+    public String viewName = "openingScreen";
     private JFrame app;
     private JPanel home;
 

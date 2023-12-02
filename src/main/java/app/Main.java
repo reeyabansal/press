@@ -84,6 +84,7 @@ public class Main {
         views.add(homeScreen, homeScreen.viewName);
 
 
+
 //        viewManagerModel.setActiveView(signupView.viewName);
 //        viewManagerModel.firePropertyChanged();
 
