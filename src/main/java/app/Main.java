@@ -81,10 +81,8 @@ public class Main {
         views.add(loginScreen, loginScreen.viewName);
         views.add(homeScreen, homeScreen.viewName);
 
-
-
-//        viewManagerModel.setActiveView(signupView.viewName);
-//        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setActiveView(openingScreen.viewName);
+        viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
