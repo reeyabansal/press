@@ -1,12 +1,14 @@
 package app.view;
 
 import interface_adapters.Favourite.FavouriteController;
+import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchController;
 import interface_adapters.Search.SearchViewModel;
 import interface_adapters.SeeFavourites.SeeFavouritesController;
+import interface_adapters.SeeFavourites.SeeFavouritesViewModel;
 import interface_adapters.TopNews.TopNewsController;
 import interface_adapters.TopNews.TopNewsViewModel;
 
@@ -37,14 +39,35 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private int currPage;
 
     private MapController mapController;
-    private MapViewModel viewModel;
+    private TopNewsController topNewsController;
+    private MapViewModel mapViewModel;
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel) throws IOException {
+    private TopNewsViewModel topNewsViewModel;
+    private SearchViewModel searchViewModel;
+    private SearchController searchController;
+    private FavouriteController favouriteController;
+    private FavouriteViewModel favouriteViewModel;
+    private SeeFavouritesController seeFavouritesController;
+    private SeeFavouritesViewModel seeFavouritesViewModel;
+
+
+    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel) throws IOException, InterruptedException {
+        this.topNewsController = topNewsController;
+        this.topNewsViewModel = topNewsViewModel;
+        this.searchController = searchController;
+        this.searchViewModel = searchViewModel;
         this.mapController = mapController;
-        this.viewModel = viewModel;
-        this.viewModel.addPropertyChangeListener(this);
+        this.mapViewModel = mapViewModel;
+        this.favouriteController = favouriteController;
+        this.favouriteViewModel = favouriteViewModel;
+        this.seeFavouritesController = seeFavouritesController;
+        this.seeFavouritesViewModel = seeFavouritesViewModel;
+        this.topNewsViewModel.addPropertyChangeListener(this);
+        this.searchViewModel.addPropertyChangeListener(this);
+        this.mapViewModel.addPropertyChangeListener(this);
 
-        info = this.viewModel.getState().getArticles();
+        topNewsController.execute();
+        info = this.topNewsViewModel.getState().getArticleInfo();
 
         List<List<List<String>>> divided_list = new ArrayList<>();
         divided_list = this.makePages(info);
@@ -60,7 +83,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    mapController.execute(search.getText());
+                    searchController.execute(search.getText());
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -82,34 +105,19 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         refresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btns.removeAll();
-                home.remove(btns);
-                if (currPage == finalDivided_list.size() - 1){
-                    currPage = 0;
-                    try {
-                        makeArticleButtons(finalDivided_list.get(currPage));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-                else {
-                    currPage++;
-                    try {
-                        makeArticleButtons(finalDivided_list.get(currPage));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-                btns.revalidate();
-                btns.repaint();
+                display(finalDivided_list);
             }
         });
+
+        JButton fav = new JButton("Favourites");
+        JButton history = new JButton("History");
+        utilityButtons.add(fav);
+        utilityButtons.add(history);
 
         map = new JPanel();
         map.setPreferredSize(new Dimension(1200, 800));
         JLabel imgLabel = new JLabel(new ImageIcon("assets/map.png"));
         imgLabel.setPreferredSize(new Dimension(1200, 500));
-        map.setBounds(100, 300, 1200, 800);
 
         JButton bCA = new JButton("CA");
         bCA.setSize(30,30);
@@ -259,7 +267,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                 this.addToFavourites(fav.getText(), fav);
 
                 articles[i].add(article);
-                this.makeClick(URL, articles[i]);
+                this.makeClick(URL, readMore);
                 btns.add(articles[i]);
             }
             btns.revalidate();
@@ -271,12 +279,46 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         }
     }
 
+    private void display(List<List<List<String>>> desiredArticles){
+        btns.removeAll();
+        home.remove(btns);
+        if (currPage == desiredArticles.size() - 1){
+            currPage = 0;
+            try {
+                makeArticleButtons(desiredArticles.get(currPage));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        else {
+            currPage++;
+            try {
+                makeArticleButtons(desiredArticles.get(currPage));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        btns.revalidate();
+        btns.repaint();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        MapState state = (MapState) evt.getNewValue();
+        if (evt.getSource().equals("MapState")){
+
+        }
+        if (evt.getSource().equals("SearchState")){
+
+        }
+        if (evt.getSource().equals("TopNewsState")){
+
+        }
+        if (evt.getSource().equals("SeeFavouritesState")){
+
+        }
     }
 }
