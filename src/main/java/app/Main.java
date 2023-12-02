@@ -6,14 +6,15 @@ import data_access.HistoryDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryViewModel;
+import interface_adapters.Login.LoginViewModel;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchViewModel;
 import interface_adapters.SeeFavourites.SeeFavouritesViewModel;
 import interface_adapters.SeeHistory.SeeHistoryViewModel;
+import interface_adapters.Signup.SignupViewModel;
 import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
-import view.HomeScreen;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,6 +46,8 @@ public class Main {
         SeeFavouritesViewModel seeFavouritesViewModel = new SeeFavouritesViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
         SeeHistoryViewModel seeHistoryViewModel = new SeeHistoryViewModel();
+        SignupViewModel signupViewModel = new SignupViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
 
         // TODO: Make user data access objects
 
@@ -70,7 +73,14 @@ public class Main {
         }
 
         // TODO: Make factories and add to views
+        OpeningScreen openingScreen = new OpeningScreen();
+        SignupScreen signupScreen = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+        LoginScreen loginScreen = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, topNewsViewModel, userDataAccessObject);
         HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, favouriteDataAccessObject, historyDataAccessObject);
+
+        views.add(openingScreen, openingScreen.viewName);
+        views.add(signupScreen, signupScreen.viewName);
+        views.add(loginScreen, loginScreen.viewName);
         views.add(homeScreen, homeScreen.viewName);
 
 
