@@ -66,6 +66,8 @@ public class HomeScreenFactory {
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error occurred.");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         return null;

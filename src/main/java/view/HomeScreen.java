@@ -4,6 +4,7 @@ import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryController;
 import interface_adapters.History.HistoryViewModel;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
@@ -58,8 +59,10 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private HistoryViewModel historyViewModel;
     private SeeHistoryController seeHistoryController;
 
+    private String username;
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel) throws IOException, InterruptedException {
+
+    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
         this.topNewsController = topNewsController;
         this.topNewsViewModel = topNewsViewModel;
         this.searchController = searchController;
@@ -81,6 +84,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 //        this.favouriteViewModel.addPropertyChangeListener(this);
         this.seeHistoryViewModel.addPropertyChangeListener(this);
         this.seeFavouritesViewModel.addPropertyChangeListener(this);
+
+        username = loggedInViewModel.getState().getUsername();
 
         topNewsController.execute();
 
@@ -107,7 +112,9 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
         JPanel utilityButtons = new JPanel();
         refresh = new JButton("Next");
+        JButton topNews = new JButton("Top News");
         utilityButtons.add(refresh);
+        utilityButtons.add(topNews);
         home.add(utilityButtons, BorderLayout.WEST);
 
         JButton fav = new JButton("Favourites");
@@ -118,14 +125,25 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         fav.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seeFavouritesController.execute();
+                seeFavouritesController.execute(username);
             }
         });
 
         history.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seeHistoryController.execute();
+                seeHistoryController.execute(username);
+            }
+        });
+
+        topNews.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    topNewsController.execute();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -196,7 +214,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             public void actionPerformed(ActionEvent e) {
                 try{
                     Desktop.getDesktop().browse(new URL(urlString).toURI());
-                    historyController.execute(u, );
+                    historyController.execute(u, username);
                 } catch (IOException | URISyntaxException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -209,7 +227,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                favouriteController.execute(u, );
+                favouriteController.execute(u, username);
                 button.setText("Unfavorite");
                 // Add article to favourites
 
