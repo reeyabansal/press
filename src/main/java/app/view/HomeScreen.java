@@ -89,6 +89,15 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             article.setMaximumSize(new Dimension(290, 300));
             article.setPreferredSize(new Dimension(290, 300));
             article.setFont(new Font("Calibri",Font.PLAIN,13));
+
+            JButton readMore = new JButton("Read More");
+            JButton fav = new JButton("Favourite");
+            readMore.setBounds(2,130, 100, 30);
+            fav.setBounds(2, 170, 100, 30);
+            article.add(readMore);
+            article.add(fav);
+            this.addToFavourites(fav.getText(), fav);
+
             articles[i].add(article);
             this.makeClick(url, articles[i]);
             btns.add(articles[i]);
@@ -179,6 +188,18 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             }
         });
     }
+
+    public void addToFavourites(String currState, JButton button){
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                button.setText("Unfavorite");
+                // Add article to favourites
+
+
+            } }); }
 
     public void makeCountryClick(JButton button, String country){
         button.addActionListener(new ActionListener() {
