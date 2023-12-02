@@ -8,6 +8,7 @@ import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryController;
 import interface_adapters.History.HistoryPresenter;
 import interface_adapters.History.HistoryViewModel;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapPresenter;
 import interface_adapters.Map.MapViewModel;
@@ -51,7 +52,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class HomeScreenFactory {
-    public static HomeScreen create(ViewManagerModel viewManagerModel, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, FavouriteDataAccessObject favouriteDataAccessObject, HistoryDataAccessObject historyDataAccessObject) {
+    public static HomeScreen create(ViewManagerModel viewManagerModel, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, FavouriteDataAccessObject favouriteDataAccessObject, HistoryDataAccessObject historyDataAccessObject, LoggedInViewModel loggedInViewModel) {
         try {
             MapController mapController = createMapUseCase(viewManagerModel, mapViewModel);
             TopNewsController topNewsController = createTopNewsUseCase(viewManagerModel, topNewsViewModel);
@@ -61,8 +62,7 @@ public class HomeScreenFactory {
             HistoryController historyController = createHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject);
             SeeHistoryController seeHistoryController = createSeeHistoryUseCase(viewManagerModel, seeHistoryViewModel, historyDataAccessObject);
 
-            // TODO: Add attributes
-            return new HomeScreen();
+            return new HomeScreen(mapController, topNewsController, searchController, favouriteController, seeFavouritesController, historyController, seeHistoryController, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, loggedInViewModel);
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error occurred.");

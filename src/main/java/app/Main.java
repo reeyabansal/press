@@ -6,6 +6,7 @@ import data_access.HistoryDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryViewModel;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Login.LoginViewModel;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchViewModel;
@@ -38,7 +39,6 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        // TODO: Add all view models
         MapViewModel mapViewModel = new MapViewModel();
         TopNewsViewModel topNewsViewModel = new TopNewsViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
@@ -48,8 +48,7 @@ public class Main {
         SeeHistoryViewModel seeHistoryViewModel = new SeeHistoryViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-
-        // TODO: Make user data access objects
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -72,11 +71,10 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        // TODO: Make factories and add to views
         OpeningScreen openingScreen = new OpeningScreen();
         SignupScreen signupScreen = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
-        LoginScreen loginScreen = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, topNewsViewModel, userDataAccessObject);
-        HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, favouriteDataAccessObject, historyDataAccessObject);
+        LoginScreen loginScreen = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, favouriteDataAccessObject, historyDataAccessObject, loggedInViewModel);
 
         views.add(openingScreen, openingScreen.viewName);
         views.add(signupScreen, signupScreen.viewName);
