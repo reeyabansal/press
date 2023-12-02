@@ -2,6 +2,8 @@ package app.view;
 
 import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
+import interface_adapters.History.HistoryController;
+import interface_adapters.History.HistoryViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
@@ -9,6 +11,8 @@ import interface_adapters.Search.SearchController;
 import interface_adapters.Search.SearchViewModel;
 import interface_adapters.SeeFavourites.SeeFavouritesController;
 import interface_adapters.SeeFavourites.SeeFavouritesViewModel;
+import interface_adapters.SeeHistory.SeeHistoryController;
+import interface_adapters.SeeHistory.SeeHistoryViewModel;
 import interface_adapters.TopNews.TopNewsController;
 import interface_adapters.TopNews.TopNewsViewModel;
 
@@ -27,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeScreen extends JPanel implements ActionListener, PropertyChangeListener {
-
+    public String viewName = "homeScreen";
     private JPanel home;
     private JFrame app;
     private JTextField search;
@@ -41,7 +45,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private MapController mapController;
     private TopNewsController topNewsController;
     private MapViewModel mapViewModel;
-
     private TopNewsViewModel topNewsViewModel;
     private SearchViewModel searchViewModel;
     private SearchController searchController;
@@ -49,9 +52,13 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private FavouriteViewModel favouriteViewModel;
     private SeeFavouritesController seeFavouritesController;
     private SeeFavouritesViewModel seeFavouritesViewModel;
+    private HistoryController historyController;
+    private SeeHistoryViewModel seeHistoryViewModel;
+    private HistoryViewModel historyViewModel;
+    private SeeHistoryController seeHistoryController;
 
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel) throws IOException, InterruptedException {
+    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel) throws IOException, InterruptedException {
         this.topNewsController = topNewsController;
         this.topNewsViewModel = topNewsViewModel;
         this.searchController = searchController;
@@ -62,9 +69,17 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.favouriteViewModel = favouriteViewModel;
         this.seeFavouritesController = seeFavouritesController;
         this.seeFavouritesViewModel = seeFavouritesViewModel;
+        this.seeHistoryController = seeHistoryController;
+        this.seeHistoryViewModel = seeHistoryViewModel;
+        this.historyController = historyController;
+        this.historyViewModel = historyViewModel;
         this.topNewsViewModel.addPropertyChangeListener(this);
         this.searchViewModel.addPropertyChangeListener(this);
         this.mapViewModel.addPropertyChangeListener(this);
+//        this.historyViewModel.addPropertyChangeListener(this);
+//        this.favouriteViewModel.addPropertyChangeListener(this);
+        this.seeHistoryViewModel.addPropertyChangeListener(this);
+        this.seeFavouritesViewModel.addPropertyChangeListener(this);
 
         topNewsController.execute();
         info = this.topNewsViewModel.getState().getArticleInfo();

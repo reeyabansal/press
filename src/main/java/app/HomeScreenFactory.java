@@ -1,5 +1,6 @@
 package app;
 
+import app.view.HomeScreen;
 import data_access.FavouriteDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import interface_adapters.Favourite.FavouriteController;
@@ -60,11 +61,12 @@ public class HomeScreenFactory {
             HistoryController historyController = createHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject);
             SeeHistoryController seeHistoryController = createSeeHistoryUseCase(viewManagerModel, seeHistoryViewModel, historyDataAccessObject);
 
-            // TODO: Add attributes
-            return new HomeScreen();
+            return new HomeScreen(mapController, topNewsController, searchController, favouriteController, seeFavouritesController, historyController, seeHistoryController, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel);
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error occurred.");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         return null;
