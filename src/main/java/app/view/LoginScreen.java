@@ -1,4 +1,7 @@
 package app.view;
+import interface_adapters.Login.LoginController;
+import interface_adapters.Login.LoginViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,6 +66,10 @@ public class LoginScreen extends JFrame implements ActionListener {
 
     }
 
+    public LoginScreen(LoginViewModel loginViewModel, LoginController loginController) {
+
+    }
+
     public static void main(String[] args) throws IOException {
         new LoginScreen();
 
@@ -77,11 +84,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         }
 
         if (evt.getSource() == logInBtn) {
-            try {
-                new HomeScreen();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            new HomeScreen();
             app.dispose();
 
         }
