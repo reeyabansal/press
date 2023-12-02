@@ -4,6 +4,7 @@ import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryController;
 import interface_adapters.History.HistoryViewModel;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
@@ -38,6 +39,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private JPanel map;
     private JPanel btns;
     private JButton articles[];
+    private JButton refresh;
     private List<List<String>> info = new ArrayList<>(); //example data set pulled from API
     private String keyword;
     private int currPage;
@@ -57,8 +59,10 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private HistoryViewModel historyViewModel;
     private SeeHistoryController seeHistoryController;
 
+    private String username;
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel) throws IOException, InterruptedException {
+
+    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
         this.topNewsController = topNewsController;
         this.topNewsViewModel = topNewsViewModel;
         this.searchController = searchController;
@@ -81,11 +85,9 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.seeHistoryViewModel.addPropertyChangeListener(this);
         this.seeFavouritesViewModel.addPropertyChangeListener(this);
 
-        topNewsController.execute();
-        info = this.topNewsViewModel.getState().getArticleInfo();
+        username = loggedInViewModel.getState().getUsername();
 
-        List<List<List<String>>> divided_list = new ArrayList<>();
-        divided_list = this.makePages(info);
+        topNewsController.execute();
 
         app = new JFrame();
 
@@ -108,26 +110,42 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         btns = new JPanel();
         btns.setLayout(new GridLayout(1, 5));
 
-        List<List<List<String>>> finalDivided_list = divided_list;
-
-        currPage = 0;
-        makeArticleButtons(divided_list.get(currPage));
-
         JPanel utilityButtons = new JPanel();
-        JButton refresh = new JButton("Next");
+        refresh = new JButton("Next");
+        JButton topNews = new JButton("Top News");
         utilityButtons.add(refresh);
+        utilityButtons.add(topNews);
         home.add(utilityButtons, BorderLayout.WEST);
-        refresh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                display(finalDivided_list);
-            }
-        });
 
         JButton fav = new JButton("Favourites");
         JButton history = new JButton("History");
         utilityButtons.add(fav);
         utilityButtons.add(history);
+
+        fav.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seeFavouritesController.execute(username);
+            }
+        });
+
+        history.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seeHistoryController.execute(username);
+            }
+        });
+
+        topNews.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    topNewsController.execute();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         map = new JPanel();
         map.setPreferredSize(new Dimension(1200, 800));
@@ -189,13 +207,14 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     }
 
-    public void makeClick(String urlString, JButton button){
+    public void makeClick(String urlString, JButton button, List<String> u){
 
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
                     Desktop.getDesktop().browse(new URL(urlString).toURI());
+                    historyController.execute(u, username);
                 } catch (IOException | URISyntaxException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -203,12 +222,12 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         });
     }
 
-    public void addToFavourites(String currState, JButton button){
+    public void addToFavourites(String currState, JButton button, List<String> u){
 
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                favouriteController.execute(u, username);
                 button.setText("Unfavorite");
                 // Add article to favourites
 
@@ -279,10 +298,10 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                 fav.setBounds(2, 200, 100, 30);
                 article.add(readMore);
                 article.add(fav);
-                this.addToFavourites(fav.getText(), fav);
+                this.addToFavourites(fav.getText(), fav, u);
 
                 articles[i].add(article);
-                this.makeClick(URL, readMore);
+                this.makeClick(URL, readMore, u);
                 btns.add(articles[i]);
             }
             btns.revalidate();
@@ -319,21 +338,103 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Not implemented yet");
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getSource().equals("MapState")){
-
+            info = this.mapViewModel.getState().getArticles();
+            List<List<List<String>>> divided_list = new ArrayList<>();
+            divided_list = this.makePages(info);
+            List<List<List<String>>> finalDivided_list = divided_list;
+            currPage = 0;
+            try {
+                this.makeArticleButtons(divided_list.get(currPage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            refresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    display(finalDivided_list);
+                }
+            });
         }
         if (evt.getSource().equals("SearchState")){
+            info = this.searchViewModel.getState().getArticles();
+            List<List<List<String>>> divided_list = new ArrayList<>();
+            divided_list = this.makePages(info);
+            List<List<List<String>>> finalDivided_list = divided_list;
+            currPage = 0;
+            try {
+                this.makeArticleButtons(divided_list.get(currPage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            refresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    display(finalDivided_list);
+                }
+            });
 
         }
         if (evt.getSource().equals("TopNewsState")){
+            info = this.topNewsViewModel.getState().getArticleInfo();
+            List<List<List<String>>> divided_list = new ArrayList<>();
+            divided_list = this.makePages(info);
+            List<List<List<String>>> finalDivided_list = divided_list;
+            currPage = 0;
+            try {
+                this.makeArticleButtons(divided_list.get(currPage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            refresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    display(finalDivided_list);
+                }
+            });
 
         }
         if (evt.getSource().equals("SeeFavouritesState")){
+            info = this.seeFavouritesViewModel.getState().getArticles();
+            List<List<List<String>>> divided_list = new ArrayList<>();
+            divided_list = this.makePages(info);
+            List<List<List<String>>> finalDivided_list = divided_list;
+            currPage = 0;
+            try {
+                this.makeArticleButtons(divided_list.get(currPage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            refresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    display(finalDivided_list);
+                }
+            });
 
+        }
+        if (evt.getSource().equals("SeeHistoryState")){
+            info = this.seeHistoryViewModel.getState().getArticles();
+            List<List<List<String>>> divided_list = new ArrayList<>();
+            divided_list = this.makePages(info);
+            List<List<List<String>>> finalDivided_list = divided_list;
+            currPage = 0;
+            try {
+                this.makeArticleButtons(divided_list.get(currPage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            refresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    display(finalDivided_list);
+                }
+            });
         }
     }
 }
