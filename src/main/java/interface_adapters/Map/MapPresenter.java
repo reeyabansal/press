@@ -20,7 +20,6 @@ public class MapPresenter implements MapOutputBoundary {
         // Title, ImageURL, Description, URL, PublishedAt, Author
         // Gets the current viewModel state, updates it, and sets it again, then fires a property change
         List<List<String>> articles = mapOutputData.getArticles();
-        System.out.println(articles);
         MapState mapState = mapViewModel.getState();
         mapState.setArticles(articles);
         this.mapViewModel.setState(mapState);
