@@ -6,7 +6,6 @@ import interface_adapters.History.HistoryController;
 import interface_adapters.History.HistoryViewModel;
 import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Map.MapController;
-import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchController;
 import interface_adapters.Search.SearchViewModel;
@@ -80,8 +79,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.topNewsViewModel.addPropertyChangeListener(this);
         this.searchViewModel.addPropertyChangeListener(this);
         this.mapViewModel.addPropertyChangeListener(this);
-//        this.historyViewModel.addPropertyChangeListener(this);
-//        this.favouriteViewModel.addPropertyChangeListener(this);
         this.seeHistoryViewModel.addPropertyChangeListener(this);
         this.seeFavouritesViewModel.addPropertyChangeListener(this);
 
@@ -217,6 +214,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                     Desktop.getDesktop().browse(new URL(urlString).toURI());
                     historyController.execute(u, username);
                 } catch (IOException | URISyntaxException ex) {
+                    System.out.println("URL does not work for");
                     throw new RuntimeException(ex);
                 }
             }
@@ -275,41 +273,50 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             articles = new JButton[info.size()];
             for (int i = 0; i < info.size(); i++) {
 
-                articles[i] = new JButton();
-                articles[i].setPreferredSize(new Dimension(290, 245));
-                articles[i].setLayout(new BorderLayout());
-
                 ArrayList<String> u = new ArrayList<String>(info.get(i));
-                String Title = u.get(0);
-                String ImageURL = u.get(1);
-                String Description = u.get(2);
-                String URL = u.get(3);
-                String PublishedAt = u.get(4);
-                String Author = u.get(5);
-                String text = "\n" + Description + "\n" + PublishedAt + "\n" + Author;
-                BufferedImage image = ImageIO.read(new URL(ImageURL));
+                if (u.contains("[Removed]")) {}
+                else{
+                    articles[i] = new JButton();
+                    articles[i].setPreferredSize(new Dimension(290, 245));
+                    articles[i].setLayout(new BorderLayout());
 
-                JLabel article = new JLabel();
-                article.setText("<html>" + "<b>" + Title + "</b>" + text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-                if (image != null) {
-                    article.setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+                    String Title = u.get(0);
+                    String ImageURL = u.get(1);
+                    String Description = u.get(2);
+                    String URL = u.get(3);
+                    String PublishedAt = u.get(4);
+                    String Author = u.get(5);
+                    String text = "\n" + Description + "\n" + PublishedAt + "\n" + Author;
+                    BufferedImage image;
+                    image = ImageIO.read(new URL("https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg"));
+                    try {
+                        image = ImageIO.read(new URL(ImageURL));
+                    } catch (IOException ignored) {
+                    }
+
+                    JLabel article = new JLabel();
+                    article.setText("<html>" + "<b>" + Title + "</b>" + text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+                    try {
+                        article.setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+                    } catch (Exception ignored) {
+                    }
+                    article.setVerticalTextPosition(SwingConstants.TOP);
+                    article.setMaximumSize(new Dimension(290, 300));
+                    article.setPreferredSize(new Dimension(290, 300));
+                    article.setFont(new Font("Calibri", Font.PLAIN, 13));
+
+                    JButton readMore = new JButton("Read More");
+                    JButton fav = new JButton("Favourite");
+                    readMore.setBounds(2, 170, 100, 30);
+                    fav.setBounds(2, 200, 100, 30);
+                    article.add(readMore);
+                    article.add(fav);
+                    this.addToFavourites(fav.getText(), fav, u);
+
+                    articles[i].add(article);
+                    this.makeClick(URL, readMore, u);
+                    btns.add(articles[i]);
                 }
-                article.setVerticalTextPosition(SwingConstants.TOP);
-                article.setMaximumSize(new Dimension(290, 300));
-                article.setPreferredSize(new Dimension(290, 300));
-                article.setFont(new Font("Calibri", Font.PLAIN, 13));
-
-                JButton readMore = new JButton("Read More");
-                JButton fav = new JButton("Favourite");
-                readMore.setBounds(2, 170, 100, 30);
-                fav.setBounds(2, 200, 100, 30);
-                article.add(readMore);
-                article.add(fav);
-                this.addToFavourites(fav.getText(), fav, u);
-
-                articles[i].add(article);
-                this.makeClick(URL, readMore, u);
-                btns.add(articles[i]);
             }
             btns.revalidate();
             btns.repaint();
@@ -320,25 +327,30 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     }
 
     private void display(List<List<List<String>>> desiredArticles) {
-        btns.removeAll();
-        home.remove(btns);
-        if (currPage == desiredArticles.size() - 1) {
-            currPage = 0;
-            try {
-                makeArticleButtons(desiredArticles.get(currPage));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else {
-            currPage++;
-            try {
-                makeArticleButtons(desiredArticles.get(currPage));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+        if(desiredArticles.isEmpty()){
+            System.out.println("Nothing to display");
         }
-        btns.revalidate();
-        btns.repaint();
+        else {
+            btns.removeAll();
+            home.remove(btns);
+            if (currPage == desiredArticles.size() - 1) {
+                currPage = 0;
+                try {
+                    makeArticleButtons(desiredArticles.get(currPage));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                currPage++;
+                try {
+                    makeArticleButtons(desiredArticles.get(currPage));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+           btns.revalidate();
+           btns.repaint();
+        }
     }
 
     @Override
@@ -370,23 +382,26 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         if (evt.getPropertyName().equals("searchState")) {
             info.clear();
             info = this.searchViewModel.getState().getArticles();
-            System.out.println(info);
-            List<List<List<String>>> divided_list = new ArrayList<>();
-            divided_list = this.makePages(info);
-            List<List<List<String>>> finalDivided_list = divided_list;
-            currPage = 0;
-            try {
-                this.makeArticleButtons(divided_list.get(currPage));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (info.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No results for this word");
             }
-            refresh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    display(finalDivided_list);
+            else{
+                List<List<List<String>>> divided_list = new ArrayList<>();
+                divided_list = this.makePages(info);
+                List<List<List<String>>> finalDivided_list = divided_list;
+                currPage = 0;
+                try {
+                    this.makeArticleButtons(divided_list.get(currPage));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
-
+                refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        display(finalDivided_list);
+                    }
+                });
+            }
         }
         if (evt.getPropertyName().equals("topNewsState")) {
             info.clear();
