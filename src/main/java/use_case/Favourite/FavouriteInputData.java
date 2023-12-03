@@ -1,18 +1,17 @@
-package use_case.History;
+package use_case.Favourite;
 
 import java.util.List;
 
-public class HistoryInputData {
-    // Order of List Items: Title, ImageURL, Description, URL, PublishedAt, Author
-    private final List<String> article;
-    private final String username;
+public class FavouriteInputData {
+    final private List<String> article;
+    final private String username;
 
     /**
      *
      * @param article
      * @param username
      */
-    public HistoryInputData(List<String> article, String username){
+    public FavouriteInputData(List<String> article, String username) {
         this.article = article;
         this.username = username;
     }
