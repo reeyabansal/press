@@ -3,17 +3,22 @@ package use_case.SeeFavourites;
 import java.util.List;
 
 public class SeeFavouritesInteractor implements SeeFavouritesInputBoundary {
-    final SeeFavouritesDataAccessInterface seeFavouritesDataAccessObject;
+    final SeeFavouritesDataAccessInterface favouriteDataAccessObject;
     final SeeFavouritesOutputBoundary seeFavouritesPresenter;
 
-    public SeeFavouritesInteractor(SeeFavouritesDataAccessInterface seeFavouritesDataAccessObject, SeeFavouritesOutputBoundary seeFavouritesPresenter) {
-        this.seeFavouritesDataAccessObject = seeFavouritesDataAccessObject;
+    /**
+     *
+     * @param favouriteDataAccessObject
+     * @param seeFavouritesPresenter
+     */
+    public SeeFavouritesInteractor(SeeFavouritesDataAccessInterface favouriteDataAccessObject, SeeFavouritesOutputBoundary seeFavouritesPresenter) {
+        this.favouriteDataAccessObject = favouriteDataAccessObject;
         this.seeFavouritesPresenter = seeFavouritesPresenter;
     }
 
     @Override
     public void execute(SeeFavouritesInputData seeFavouritesInputData) {
-        List<List<String>> favourites = seeFavouritesDataAccessObject.getFavourites(seeFavouritesInputData.getUsername());
+        List<List<String>> favourites = favouriteDataAccessObject.getFavourites(seeFavouritesInputData.getUsername());
         if (favourites.isEmpty()) {
             seeFavouritesPresenter.prepareFailView("Favourite articles could not be found.");
         } else {

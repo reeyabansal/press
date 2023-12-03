@@ -9,6 +9,11 @@ public class SeeFavouritesOutputData {
         this.favourites = favourites;
     }
 
+    /**
+     *
+     * @return visited
+     * Getter method for visited attribute
+     */
     public List<List<String>> getFavourites() {
         return favourites;
     }

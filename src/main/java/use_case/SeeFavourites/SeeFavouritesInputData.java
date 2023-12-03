@@ -7,6 +7,11 @@ public class SeeFavouritesInputData {
         this.username = username;
     }
 
+    /**
+     *
+     * @return username
+     * Getter method for username attribute
+     */
     public String getUsername() {
         return username;
     }
