@@ -291,7 +291,9 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
                 JLabel article = new JLabel();
                 article.setText("<html>" + "<b>" + Title + "</b>" + text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-                article.setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+                if (image != null) {
+                    article.setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+                }
                 article.setVerticalTextPosition(SwingConstants.TOP);
                 article.setMaximumSize(new Dimension(290, 300));
                 article.setPreferredSize(new Dimension(290, 300));
