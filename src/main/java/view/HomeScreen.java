@@ -121,6 +121,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         utilityButtons.add(fav);
         utilityButtons.add(history);
 
+        topNewsController.execute();
         fav.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -204,7 +205,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         app.pack();
         app.setVisible(true);
 
-        topNewsController.execute();
 
     }
 
@@ -368,6 +368,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         if (evt.getPropertyName().equals("searchState")){
             info.clear();
             info = this.searchViewModel.getState().getArticles();
+            System.out.println(info);
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
             List<List<List<String>>> finalDivided_list = divided_list;
