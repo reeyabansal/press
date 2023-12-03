@@ -14,6 +14,7 @@ public class MapState {
 
     public void setArticles(List<List<String>> articles) {
         this.articles = articles;
+        System.out.println("map state set articles");
     }
 
     public List<List<String>> getArticles() {

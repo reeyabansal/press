@@ -71,17 +71,21 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        OpeningScreen openingScreen = new OpeningScreen();
-        SignupScreen signupScreen = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
-        LoginScreen loginScreen = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+//        OpeningScreen openingScreen = new OpeningScreen();
+//        SignupScreen signupScreen = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+//        LoginScreen loginScreen = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
         HomeScreen homeScreen = HomeScreenFactory.create(viewManagerModel, mapViewModel, topNewsViewModel, searchViewModel, favouriteViewModel, seeFavouritesViewModel, historyViewModel, seeHistoryViewModel, favouriteDataAccessObject, historyDataAccessObject, loggedInViewModel);
 
-        views.add(openingScreen, openingScreen.viewName);
-        views.add(signupScreen, signupScreen.viewName);
-        views.add(loginScreen, loginScreen.viewName);
+//        views.add(openingScreen, openingScreen.viewName);
+//        assert signupScreen != null;
+//        views.add(signupScreen, signupScreen.viewName);
+//        assert loginScreen != null;
+//        views.add(loginScreen, loginScreen.viewName);
+        assert homeScreen != null;
         views.add(homeScreen, homeScreen.viewName);
 
-        viewManagerModel.setActiveView(openingScreen.viewName);
+        viewManagerModel.setActiveView(homeScreen.viewName);
+//        viewManagerModel.setActiveView(openingScreen.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

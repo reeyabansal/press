@@ -87,7 +87,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
         username = loggedInViewModel.getState().getUsername();
 
-        topNewsController.execute();
+        //topNewsController.execute();
 
         app = new JFrame();
 
@@ -101,6 +101,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             public void actionPerformed(ActionEvent e) {
                 try {
                     searchController.execute(search.getText());
+                    System.out.println("executed search");
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -343,7 +344,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getSource().equals("MapState")){
+        if (evt.getSource().equals("mapState")){
             info = this.mapViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -361,7 +362,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                 }
             });
         }
-        if (evt.getSource().equals("SearchState")){
+        if (evt.getSource().equals("searchState")){
+            System.out.println("property change reached for search usecase");
             info = this.searchViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -380,7 +382,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             });
 
         }
-        if (evt.getSource().equals("TopNewsState")){
+        if (evt.getSource().equals("topNewsState")){
             info = this.topNewsViewModel.getState().getArticleInfo();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -399,7 +401,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             });
 
         }
-        if (evt.getSource().equals("SeeFavouritesState")){
+        if (evt.getSource().equals("seeFavouritesState")){
             info = this.seeFavouritesViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -418,7 +420,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             });
 
         }
-        if (evt.getSource().equals("SeeHistoryState")){
+        if (evt.getSource().equals("seeHistoryState")){
             info = this.seeHistoryViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
