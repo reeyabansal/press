@@ -23,7 +23,7 @@ public class TopNewsOutputData {
         return articleInfo;
     }
 
-    public List<Integer> getTotalResults() {
-        return totalResults;
-    }
+//    public List<Integer> getTotalResults() {
+//        return totalResults;
+//    }
 }

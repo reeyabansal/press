@@ -43,7 +43,6 @@ public class NewsAPITopNewsDataAccessObject implements NewsAPIDataAccessObject {
             String country;
             if (parameter.equals("Global")) country = null;
             else country = supportedCountries.get(parameter);
-            System.out.println("supported:" + country);
             newsApiClient.getTopHeadlines(
                     new TopHeadlinesRequest.Builder()
                             .country(country)
