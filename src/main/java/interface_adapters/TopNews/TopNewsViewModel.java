@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class TopNewsViewModel extends ViewModel {
-    private TopNewsState state;
+    private TopNewsState state = new TopNewsState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public TopNewsViewModel() {

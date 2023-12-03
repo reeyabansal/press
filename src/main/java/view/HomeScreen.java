@@ -87,8 +87,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
         username = loggedInViewModel.getState().getUsername();
 
-        //topNewsController.execute();
-
         app = new JFrame();
 
         home = new JPanel(new BorderLayout());
@@ -206,6 +204,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         app.pack();
         app.setVisible(true);
 
+        topNewsController.execute();
+
     }
 
     public void makeClick(String urlString, JButton button, List<String> u){
@@ -266,7 +266,9 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     }
 
     public void makeArticleButtons(List<List<String>> info) throws IOException {
-        btns.removeAll();
+        if (btns != null) {
+            btns.removeAll();
+        }
         if (info.size() <=5){
             articles = new JButton[info.size()];
             for(int i = 0; i < info.size(); i++){
