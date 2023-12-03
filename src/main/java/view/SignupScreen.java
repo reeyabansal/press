@@ -1,90 +1,66 @@
 package view;
-import interface_adapters.Signup.SignupController;
-import interface_adapters.Signup.SignupState;
-import interface_adapters.Signup.SignupViewModel;
+
+
+import interface_adapters.signup.SignupController;
+import interface_adapters.signup.SignupState;
+import interface_adapters.signup.SignupViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
-import java.io.IOException;
+import java.beans.PropertyChangeListener;
 
-public class SignupScreen extends JFrame implements ActionListener {
-
+public class SignupScreen extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
+    private final JTextField usernameInputField = new JTextField(15);
+    private final JPasswordField passwordInputField = new JPasswordField(15);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final SignupController signupController;
 
-    private JPasswordField passwordField, repeatPasswordField;
-    private JTextField emailField;
-    private JLabel label_password, label_email, label_repeatPass, message, title;
-    private JButton signUpBtn, logInBtn;
-    private JFrame app;
-    private JPanel home;
+    private final JButton signUp;
+    private final JButton cancel;
 
+    // TODO Note: this is the new JButton for clearing the users file
+    private final JButton clear;
 
-    public SignupScreen(SignupController signupController, SignupViewModel signupViewModel) {
+    public SignupScreen(SignupController controller, SignupViewModel signupViewModel) {
 
-        this.signupController = signupController;
+        this.signupController = controller;
         this.signupViewModel = signupViewModel;
+        signupViewModel.addPropertyChangeListener(this);
 
-        app = new JFrame();
-        home = new JPanel();
-        // home.setLayout(new FlowLayout());
+        JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        LabelTextPanel usernameInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
+        LabelTextPanel passwordInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
+        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
 
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setSize(1200, 800);
-        app.setLocationRelativeTo(null);
-        app.setLayout(null);
+        JPanel buttons = new JPanel();
+        signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
+        buttons.add(signUp);
+        cancel = new JButton("Login");
+        buttons.add(cancel);
 
-        label_email = new JLabel("Email");
-        label_email.setBounds(380, 300, 100, 40);
+        // TODO Note: the following line instantiates the "clear" button; it uses
+        //      a CLEAR_BUTTON_LABEL constant which is defined in the SignupViewModel class.
+        //      You need to add this "clear" button to the "buttons" panel.
+        clear = new JButton(SignupViewModel.CLEAR_BUTTON_LABEL);
 
-        emailField = new JTextField();
-        emailField.setBounds(500, 300, 300, 40);
-
-        label_password = new JLabel("Password");
-        label_password.setBounds(380, 350, 100, 40);
-
-        passwordField = new JPasswordField();
-        passwordField.setBounds(500, 350, 300, 40);
-
-        label_repeatPass = new JLabel("Repeat Password");
-        label_repeatPass.setBounds(380, 400, 200, 40);
-
-        repeatPasswordField = new JPasswordField();
-        repeatPasswordField.setBounds(500, 400, 300, 40);
-
-        signUpBtn = new JButton("Create Account");
-        signUpBtn.setBounds(500, 470, 120, 40);
-        signUpBtn.addActionListener(this);
-
-        logInBtn = new JButton("Log-in");
-        logInBtn.setBounds(630, 470, 100, 40);
-        logInBtn.addActionListener(this);
-
-        app.add(label_email);
-        app.add(emailField);
-        app.add(passwordField);
-        app.add(label_password);
-        app.add(label_repeatPass);
-        app.add(repeatPasswordField);
-        app.add(signUpBtn);
-        app.add(logInBtn);
-
-        app.setTitle("Sign Up");
-        // app.pack();
-        app.setVisible(true);
-
-        signUpBtn.addActionListener(
+        signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(signUpBtn)) {
+                        if (evt.getSource().equals(signUp)) {
                             SignupState currentState = signupViewModel.getState();
 
                             signupController.execute(
@@ -97,13 +73,45 @@ public class SignupScreen extends JFrame implements ActionListener {
                 }
         );
 
-        emailField.addKeyListener(
+        // TODO Add the body to the actionPerformed method of the action listener below
+        //      for the "clear" button. You'll need to write the controller before
+        //      you can complete this.
+        clear.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                }
+        );
+
+        cancel.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(cancel)) {
+                            SignupState currentState = signupViewModel.getState();
+
+                            signupController.execute(
+                                    currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getRepeatPassword()
+                            );
+                        }
+                    }
+                }
+        );
+
+        // This makes a new KeyListener implementing class, instantiates it, and
+        // makes it listen to keystrokes in the usernameInputField.
+        //
+        // Notice how it has access to instance variables in the enclosing class!
+        usernameInputField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        String text = emailField.getText() + e.getKeyChar();
-                        currentState.setEmail(text);
+                        String text = usernameInputField.getText() + e.getKeyChar();
+                        currentState.setUsername(text);
                         signupViewModel.setState(currentState);
                     }
 
@@ -116,12 +124,12 @@ public class SignupScreen extends JFrame implements ActionListener {
                     }
                 });
 
-        passwordField.addKeyListener(
+        passwordInputField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setPassword(passwordField.getText() + e.getKeyChar());
+                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
                         signupViewModel.setState(currentState);
                     }
 
@@ -137,12 +145,12 @@ public class SignupScreen extends JFrame implements ActionListener {
                 }
         );
 
-        repeatPasswordField.addKeyListener(
+        repeatPasswordInputField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setRepeatPassword(repeatPasswordField.getText() + e.getKeyChar());
+                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
                         signupViewModel.setState(currentState); // Hmm, is this necessary?
                     }
 
@@ -158,20 +166,27 @@ public class SignupScreen extends JFrame implements ActionListener {
                 }
         );
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(title);
+        this.add(usernameInfo);
+        this.add(passwordInfo);
+        this.add(repeatPasswordInfo);
+        this.add(buttons);
+    }
+
+    /**
+     * React to a button click that results in evt.
+     */
+    public void actionPerformed(ActionEvent evt) {
+        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
     }
 
     @Override
-    public void actionPerformed(ActionEvent evt) {
-
-    }
-
-
     public void propertyChange(PropertyChangeEvent evt) {
         SignupState state = (SignupState) evt.getNewValue();
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
     }
-
 }

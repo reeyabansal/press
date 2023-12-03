@@ -1,4 +1,4 @@
-package use_case.SignUp;
+package use_case.signup;
 
 import entity.User;
 import entity.UserFactory;
@@ -20,17 +20,25 @@ public class SignupInteractor implements SignupInputBoundary {
 
     @Override
     public void execute(SignupInputData signupInputData) {
-        if (userDataAccessObject.existsbyEmail(signupInputData.getEmail())) {
-            userPresenter.prepareFailView("User already exists.");
+        if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
+            LocalDateTime now = LocalDateTime.now();
+            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
+            SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
+            userPresenter.prepareSuccessView(signupOutputData);
+
+
+            // userPresenter.prepareFailView("User already exists.");
+
+
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
 
             LocalDateTime now = LocalDateTime.now();
-            User user = userFactory.create(signupInputData.getEmail(), signupInputData.getPassword(), now);
+            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
             userDataAccessObject.save(user);
 
-            SignupOutputData signupOutputData = new SignupOutputData(user.getEmail(), now.toString(), false);
+            SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(signupOutputData);
         }
     }

@@ -1,5 +1,6 @@
 package view;
 
+
 import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryController;
@@ -32,12 +33,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreen extends JPanel implements ActionListener, PropertyChangeListener {
-    public String viewName = "logged";
+public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
+    public String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
 
     private JPanel home;
-    private JFrame app;
+    // private JFrame app;
     private JTextField search;
     private JPanel map;
     private JPanel btns;
@@ -65,7 +66,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private String username;
 
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
+    public LoggedInView(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
         this.topNewsController = topNewsController;
         this.topNewsViewModel = topNewsViewModel;
         this.searchController = searchController;
@@ -95,7 +96,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
         //topNewsController.execute();
 
-        app = new JFrame();
+        // app = new JFrame();
 
         home = new JPanel(new BorderLayout());
 
@@ -206,11 +207,11 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.makeCountryClick(bIND, "India");
         this.makeCountryClick(bCHN, "China");
 
-        app.add(home);
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setTitle("press");
-        app.pack();
-        app.setVisible(true);
+        this.add(home);
+        /*this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("press");
+        this.pack();*/
+        this.setVisible(true);
 
     }
 
