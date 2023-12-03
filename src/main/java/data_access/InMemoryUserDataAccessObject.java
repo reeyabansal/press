@@ -29,7 +29,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
+    // assumes user exists
     public User get(String email) {
-        return null;
+        return users.get(email);
     }
 }
