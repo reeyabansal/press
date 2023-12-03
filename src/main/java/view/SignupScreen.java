@@ -23,11 +23,11 @@ public class SignupScreen extends JPanel implements ActionListener, PropertyChan
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final SignupController signupController;
 
-    private final JButton signUp;
-    private final JButton cancel;
+    JLabel title1, description;
 
-    // TODO Note: this is the new JButton for clearing the users file
-    private final JButton clear;
+    private final JButton signUp;
+    private final JButton logIn;
+
 
     public SignupScreen(SignupController controller, SignupViewModel signupViewModel) {
 
@@ -35,26 +35,49 @@ public class SignupScreen extends JPanel implements ActionListener, PropertyChan
         this.signupViewModel = signupViewModel;
         signupViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title1 = new JLabel("PRESS");
+        title1.setFont(new Font("Verdana", Font.BOLD, 60));
+        Color color = new Color(110, 188, 219);
+        title1.setForeground(color);
+        title1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        description = new JLabel("stay updated, stay notified, stay relevant.");
+        description.setFont(new Font("Verdana", Font.PLAIN, 10));
+        description.setForeground(Color.darkGray);
+        description.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+
+        // title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
+        // usernameInfo.setBackground(Color.white);
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
+        // passwordInfo.setBackground(Color.white);
+
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+        // repeatPasswordInfo.setBackground(Color.white);
+
+        JPanel fields = new JPanel();
+        fields.add(usernameInfo);
+        fields.add(passwordInfo);
+        fields.add(repeatPasswordInfo);
+
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        cancel = new JButton("Login");
-        buttons.add(cancel);
+        logIn = new JButton("Login");
+        buttons.add(logIn);
+        buttons.setBackground(Color.white);
 
-        // TODO Note: the following line instantiates the "clear" button; it uses
-        //      a CLEAR_BUTTON_LABEL constant which is defined in the SignupViewModel class.
-        //      You need to add this "clear" button to the "buttons" panel.
-        clear = new JButton(SignupViewModel.CLEAR_BUTTON_LABEL);
+
 
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -73,22 +96,12 @@ public class SignupScreen extends JPanel implements ActionListener, PropertyChan
                 }
         );
 
-        // TODO Add the body to the actionPerformed method of the action listener below
-        //      for the "clear" button. You'll need to write the controller before
-        //      you can complete this.
-        clear.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
 
-                    }
-                }
-        );
 
-        cancel.addActionListener(
+        logIn.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(cancel)) {
+                        if (evt.getSource().equals(logIn)) {
                             SignupState currentState = signupViewModel.getState();
 
                             signupController.execute(
@@ -166,20 +179,28 @@ public class SignupScreen extends JPanel implements ActionListener, PropertyChan
                 }
         );
 
+
+        this.add(title1);
+        this.add(description);
+        fields.setLayout(new BoxLayout(fields, BoxLayout.Y_AXIS));
+
+
+        this.add(fields);
+
+        // this.add(usernameInfo);
+        // this.add(passwordInfo);
+        // this.add(repeatPasswordInfo);
+        this.add(buttons);
+        this.setBackground(Color.white);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(passwordInfo);
-        this.add(repeatPasswordInfo);
-        this.add(buttons);
+
     }
 
     /**
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
     }
 
     @Override

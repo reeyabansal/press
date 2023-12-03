@@ -37,33 +37,33 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     public String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
 
-    private JPanel home;
-    // private JFrame app;
-    private JTextField search;
-    private JPanel map;
-    private JPanel btns;
-    private JButton articles[];
-    private JButton refresh;
+    private final JPanel home;
+    // private final JFrame app;
+    private final JTextField search;
+    private final JPanel map;
+    private final JPanel btns;
+    private JButton[] articles;
+    private final JButton refresh;
     private List<List<String>> info = new ArrayList<>(); //example data set pulled from API
     private String keyword;
     private int currPage;
 
-    private MapController mapController;
-    private TopNewsController topNewsController;
-    private MapViewModel mapViewModel;
-    private TopNewsViewModel topNewsViewModel;
-    private SearchViewModel searchViewModel;
-    private SearchController searchController;
-    private FavouriteController favouriteController;
-    private FavouriteViewModel favouriteViewModel;
-    private SeeFavouritesController seeFavouritesController;
-    private SeeFavouritesViewModel seeFavouritesViewModel;
-    private HistoryController historyController;
-    private SeeHistoryViewModel seeHistoryViewModel;
-    private HistoryViewModel historyViewModel;
-    private SeeHistoryController seeHistoryController;
+    private final MapController mapController;
+    private final TopNewsController topNewsController;
+    private final MapViewModel mapViewModel;
+    private final TopNewsViewModel topNewsViewModel;
+    private final SearchViewModel searchViewModel;
+    private final SearchController searchController;
+    private final FavouriteController favouriteController;
+    private final FavouriteViewModel favouriteViewModel;
+    private final SeeFavouritesController seeFavouritesController;
+    private final SeeFavouritesViewModel seeFavouritesViewModel;
+    private final HistoryController historyController;
+    private final SeeHistoryViewModel seeHistoryViewModel;
+    private final HistoryViewModel historyViewModel;
+    private final SeeHistoryController seeHistoryController;
 
-    private String username;
+    private final String username;
 
 
     public LoggedInView(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
@@ -84,17 +84,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.topNewsViewModel.addPropertyChangeListener(this);
         this.searchViewModel.addPropertyChangeListener(this);
         this.mapViewModel.addPropertyChangeListener(this);
-//        this.historyViewModel.addPropertyChangeListener(this);
-//        this.favouriteViewModel.addPropertyChangeListener(this);
         this.seeHistoryViewModel.addPropertyChangeListener(this);
         this.seeFavouritesViewModel.addPropertyChangeListener(this);
         this.loggedInViewModel = loggedInViewModel;
-        this.loggedInViewModel.addPropertyChangeListener(this);
-
 
         username = loggedInViewModel.getState().getUsername();
-
-        //topNewsController.execute();
 
         // app = new JFrame();
 
@@ -130,6 +124,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         utilityButtons.add(fav);
         utilityButtons.add(history);
 
+        topNewsController.execute();
         fav.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,31 +156,31 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         imgLabel.setPreferredSize(new Dimension(1200, 500));
 
         JButton bCA = new JButton("CA");
-        bCA.setSize(30,30);
+        bCA.setSize(30, 30);
         bCA.setLocation(250, 120);
 
         JButton bUS = new JButton("US");
-        bUS.setSize(30,30);
+        bUS.setSize(30, 30);
         bUS.setLocation(259, 185);
 
         JButton bRU = new JButton("RU");
-        bRU.setSize(30,30);
+        bRU.setSize(30, 30);
         bRU.setLocation(833, 110);
 
         JButton bAUS = new JButton("AUS");
-        bAUS.setSize(30,30);
+        bAUS.setSize(30, 30);
         bAUS.setLocation(935, 380);
 
         JButton bBR = new JButton("BR");
-        bBR.setSize(30,30);
+        bBR.setSize(30, 30);
         bBR.setLocation(406, 340);
 
         JButton bIND = new JButton("IND");
-        bIND.setSize(30,30);
+        bIND.setSize(30, 30);
         bIND.setLocation(780, 250);
 
         JButton bCHN = new JButton("CN");
-        bCHN.setSize(30,30);
+        bCHN.setSize(30, 30);
         bCHN.setLocation(848, 205);
 
 
@@ -208,29 +203,31 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.makeCountryClick(bCHN, "China");
 
         this.add(home);
-        /*this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("press");
-        this.pack();*/
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // this.setTitle("press");
+        // this.pack();
         this.setVisible(true);
+
 
     }
 
-    public void makeClick(String urlString, JButton button, List<String> u){
+    public void makeClick(String urlString, JButton button, List<String> u) {
 
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                try {
                     Desktop.getDesktop().browse(new URL(urlString).toURI());
                     historyController.execute(u, username);
                 } catch (IOException | URISyntaxException ex) {
+                    System.out.println("URL does not work for");
                     throw new RuntimeException(ex);
                 }
             }
         });
     }
 
-    public void addToFavourites(String currState, JButton button, List<String> u){
+    public void addToFavourites(String currState, JButton button, List<String> u) {
 
         button.addActionListener(new ActionListener() {
             @Override
@@ -240,9 +237,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 // Add article to favourites
 
 
-            } }); }
+            }
+        });
+    }
 
-    public void makeCountryClick(JButton button, String country){
+    public void makeCountryClick(JButton button, String country) {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -255,11 +254,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         });
     }
 
-    public List<List<List<String>>> makePages(List<List<String>> allArticles){
+    public List<List<List<String>>> makePages(List<List<String>> allArticles) {
         List<List<List<String>>> pages = new ArrayList<>();
         List<List<String>> currList = new ArrayList<>();
         for (int i = 0; i < allArticles.size(); i++) {
-            if (i % 5 == 0 && i !=0) {
+            if (i % 5 == 0 && i != 0) {
                 pages.add(new ArrayList<>(currList));
                 currList.clear();
             }
@@ -273,75 +272,91 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     }
 
     public void makeArticleButtons(List<List<String>> info) throws IOException {
-        btns.removeAll();
-        if (info.size() <=5){
+        if (btns != null) {
+            btns.removeAll();
+        }
+        if (info.size() <= 5) {
             articles = new JButton[info.size()];
-            for(int i = 0; i < info.size(); i++){
-
-                articles[i] = new JButton();
-                articles[i].setPreferredSize(new Dimension(290, 245));
-                articles[i].setLayout(new BorderLayout());
+            for (int i = 0; i < info.size(); i++) {
 
                 ArrayList<String> u = new ArrayList<String>(info.get(i));
-                String Title = u.get(0);
-                String ImageURL = u.get(1);
-                String Description = u.get(2);
-                String URL = u.get(3);
-                String PublishedAt = u.get(4);
-                String Author = u.get(5);
-                String text = "\n" + Description + "\n" + PublishedAt + "\n" + Author;
-                BufferedImage image = ImageIO.read(new URL(ImageURL));
+                if (u.contains("[Removed]")) {}
+                else{
+                    articles[i] = new JButton();
+                    articles[i].setPreferredSize(new Dimension(290, 245));
+                    articles[i].setLayout(new BorderLayout());
 
-                JLabel article = new JLabel();
-                article.setText("<html>" + "<b>"+ Title +"</b>" + text.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-                article.setIcon(new ImageIcon(image.getScaledInstance(100,100,Image.SCALE_SMOOTH)));
-                article.setVerticalTextPosition(SwingConstants.TOP);
-                article.setMaximumSize(new Dimension(290, 300));
-                article.setPreferredSize(new Dimension(290, 300));
-                article.setFont(new Font("Calibri",Font.PLAIN,13));
+                    String Title = u.get(0);
+                    String ImageURL = u.get(1);
+                    String Description = u.get(2);
+                    String URL = u.get(3);
+                    String PublishedAt = u.get(4);
+                    String Author = u.get(5);
+                    String text = "\n" + Description + "\n" + PublishedAt + "\n" + Author;
+                    BufferedImage image;
+                    image = ImageIO.read(new URL("https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg"));
+                    try {
+                        image = ImageIO.read(new URL(ImageURL));
+                    } catch (IOException ignored) {
+                    }
 
-                JButton readMore = new JButton("Read More");
-                JButton fav = new JButton("Favourite");
-                readMore.setBounds(2,170, 100, 30);
-                fav.setBounds(2, 200, 100, 30);
-                article.add(readMore);
-                article.add(fav);
-                this.addToFavourites(fav.getText(), fav, u);
+                    JLabel article = new JLabel();
+                    article.setText("<html>" + "<b>" + Title + "</b>" + text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+                    try {
+                        article.setIcon(new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+                    } catch (Exception ignored) {
+                    }
+                    article.setVerticalTextPosition(SwingConstants.TOP);
+                    article.setMaximumSize(new Dimension(290, 300));
+                    article.setPreferredSize(new Dimension(290, 300));
+                    article.setFont(new Font("Calibri", Font.PLAIN, 13));
 
-                articles[i].add(article);
-                this.makeClick(URL, readMore, u);
-                btns.add(articles[i]);
+                    JButton readMore = new JButton("Read More");
+                    JButton fav = new JButton("Favourite");
+                    readMore.setBounds(2, 170, 100, 30);
+                    fav.setBounds(2, 200, 100, 30);
+                    article.add(readMore);
+                    article.add(fav);
+                    this.addToFavourites(fav.getText(), fav, u);
+
+                    articles[i].add(article);
+                    this.makeClick(URL, readMore, u);
+                    btns.add(articles[i]);
+                }
             }
             btns.revalidate();
             btns.repaint();
             home.add(btns, BorderLayout.NORTH);
-        }
-        else{
+        } else {
             System.out.println("more than 5 articles passed");
         }
     }
 
-    private void display(List<List<List<String>>> desiredArticles){
-        btns.removeAll();
-        home.remove(btns);
-        if (currPage == desiredArticles.size() - 1){
-            currPage = 0;
-            try {
-                makeArticleButtons(desiredArticles.get(currPage));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+    private void display(List<List<List<String>>> desiredArticles) {
+        if(desiredArticles.isEmpty()){
+            System.out.println("Nothing to display");
         }
         else {
-            currPage++;
-            try {
-                makeArticleButtons(desiredArticles.get(currPage));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+            btns.removeAll();
+            home.remove(btns);
+            if (currPage == desiredArticles.size() - 1) {
+                currPage = 0;
+                try {
+                    makeArticleButtons(desiredArticles.get(currPage));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                currPage++;
+                try {
+                    makeArticleButtons(desiredArticles.get(currPage));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+            btns.revalidate();
+            btns.repaint();
         }
-        btns.revalidate();
-        btns.repaint();
     }
 
     @Override
@@ -352,8 +367,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoggedInState state = (LoggedInState) evt.getNewValue();
-
-        if (evt.getSource().equals("mapState")){
+        if (evt.getPropertyName().equals("mapState")) {
+            info.clear();
             info = this.mapViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -371,27 +386,32 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
             });
         }
-        if (evt.getSource().equals("searchState")){
-            System.out.println("property change reached for search usecase");
+        if (evt.getPropertyName().equals("searchState")) {
+            info.clear();
             info = this.searchViewModel.getState().getArticles();
-            List<List<List<String>>> divided_list = new ArrayList<>();
-            divided_list = this.makePages(info);
-            List<List<List<String>>> finalDivided_list = divided_list;
-            currPage = 0;
-            try {
-                this.makeArticleButtons(divided_list.get(currPage));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (info.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No results for this word");
             }
-            refresh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    display(finalDivided_list);
+            else{
+                List<List<List<String>>> divided_list = new ArrayList<>();
+                divided_list = this.makePages(info);
+                List<List<List<String>>> finalDivided_list = divided_list;
+                currPage = 0;
+                try {
+                    this.makeArticleButtons(divided_list.get(currPage));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
-
+                refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        display(finalDivided_list);
+                    }
+                });
+            }
         }
-        if (evt.getSource().equals("topNewsState")){
+        if (evt.getPropertyName().equals("topNewsState")) {
+            info.clear();
             info = this.topNewsViewModel.getState().getArticleInfo();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -410,42 +430,54 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             });
 
         }
-        if (evt.getSource().equals("seeFavouritesState")){
+        if (evt.getPropertyName().equals("seeFavouritesState")) {
+            info.clear();
             info = this.seeFavouritesViewModel.getState().getArticles();
-            List<List<List<String>>> divided_list = new ArrayList<>();
-            divided_list = this.makePages(info);
-            List<List<List<String>>> finalDivided_list = divided_list;
-            currPage = 0;
-            try {
-                this.makeArticleButtons(divided_list.get(currPage));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            refresh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    display(finalDivided_list);
+            if (info.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No articles found in favourites.");
+            } else {
+                List<List<List<String>>> divided_list = new ArrayList<>();
+                divided_list = this.makePages(info);
+                List<List<List<String>>> finalDivided_list = divided_list;
+                currPage = 0;
+                try {
+                    this.makeArticleButtons(divided_list.get(currPage));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
+                refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        display(finalDivided_list);
+                    }
+                });
+            }
 
         }
-        if (evt.getSource().equals("seeHistoryState")){
+        if (evt.getPropertyName().equals("seeHistoryState")) {
+            info.clear();
             info = this.seeHistoryViewModel.getState().getArticles();
-            List<List<List<String>>> divided_list = new ArrayList<>();
-            divided_list = this.makePages(info);
-            List<List<List<String>>> finalDivided_list = divided_list;
-            currPage = 0;
-            try {
-                this.makeArticleButtons(divided_list.get(currPage));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            refresh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    display(finalDivided_list);
+            if (info.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No articles found in history.");
+            } else {
+
+                System.out.println("reached here");
+                List<List<List<String>>> divided_list = new ArrayList<>();
+                divided_list = this.makePages(info);
+                List<List<List<String>>> finalDivided_list = divided_list;
+                currPage = 0;
+                try {
+                    this.makeArticleButtons(divided_list.get(currPage));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
+                refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        display(finalDivided_list);
+                    }
+                });
+            }
         }
     }
 }
