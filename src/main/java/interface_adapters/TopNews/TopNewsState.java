@@ -5,12 +5,12 @@ import java.util.List;
 
 public class TopNewsState {
     // Title, ImageURL, Description, URL, PublishedAt, Author
-    List<List<String>> articleInfo;
-    List<Integer> totalResults;
-    List<Integer> sizes;
+    List<List<String>> articleInfo = new ArrayList<>();
+//    List<Integer> totalResults;
+//    List<Integer> sizes;
 
     public TopNewsState(){
-        sizes = new ArrayList<>();
+//        sizes = new ArrayList<>();
     }
 
     public List<List<String>> getArticleInfo() {
@@ -21,21 +21,21 @@ public class TopNewsState {
         this.articleInfo = articleInfo;
     }
 
-    public List<Integer> getTotalResults() {
-        return totalResults;
-    }
-
-    public void setTotalResults(List<Integer> totalResults) {
-        this.totalResults = totalResults;
-    }
-
-    public List<Integer> getSizes() {
-        return sizes;
-    }
-
-    public void setSizes(List<Integer> sizes) {
-        this.sizes = sizes;
-    }
+//    public List<Integer> getTotalResults() {
+//        return totalResults;
+//    }
+//
+//    public void setTotalResults(List<Integer> totalResults) {
+//        this.totalResults = totalResults;
+//    }
+//
+//    public List<Integer> getSizes() {
+//        return sizes;
+//    }
+//
+//    public void setSizes(List<Integer> sizes) {
+//        this.sizes = sizes;
+//    }
 
     // min 20
     // max 60
