@@ -344,7 +344,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getSource().equals("mapState")){
+        if (evt.getPropertyName().equals("mapState")){
+            info.clear();
             info = this.mapViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -362,8 +363,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                 }
             });
         }
-        if (evt.getSource().equals("searchState")){
-            System.out.println("property change reached for search usecase");
+        if (evt.getPropertyName().equals("searchState")){
+            info.clear();
             info = this.searchViewModel.getState().getArticles();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -382,7 +383,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             });
 
         }
-        if (evt.getSource().equals("topNewsState")){
+        if (evt.getPropertyName().equals("topNewsState")){
+            info.clear();
             info = this.topNewsViewModel.getState().getArticleInfo();
             List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
@@ -401,42 +403,56 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
             });
 
         }
-        if (evt.getSource().equals("seeFavouritesState")){
+        if (evt.getPropertyName().equals("seeFavouritesState")){
+            info.clear();
             info = this.seeFavouritesViewModel.getState().getArticles();
-            List<List<List<String>>> divided_list = new ArrayList<>();
-            divided_list = this.makePages(info);
-            List<List<List<String>>> finalDivided_list = divided_list;
-            currPage = 0;
-            try {
-                this.makeArticleButtons(divided_list.get(currPage));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (info.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No articles found in favourites.");
             }
-            refresh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    display(finalDivided_list);
+            else{
+                List<List<List<String>>> divided_list = new ArrayList<>();
+                divided_list = this.makePages(info);
+                List<List<List<String>>> finalDivided_list = divided_list;
+                currPage = 0;
+                try {
+                    this.makeArticleButtons(divided_list.get(currPage));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
+                refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        display(finalDivided_list);
+                    }
+                });
+            }
 
         }
-        if (evt.getSource().equals("seeHistoryState")){
+        if (evt.getPropertyName().equals("seeHistoryState")){
+            info.clear();
             info = this.seeHistoryViewModel.getState().getArticles();
-            List<List<List<String>>> divided_list = new ArrayList<>();
-            divided_list = this.makePages(info);
-            List<List<List<String>>> finalDivided_list = divided_list;
-            currPage = 0;
-            try {
-                this.makeArticleButtons(divided_list.get(currPage));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (info.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No articles found in history.");
             }
-            refresh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    display(finalDivided_list);
+            else{
+
+                System.out.println("reached here");
+                List<List<List<String>>> divided_list = new ArrayList<>();
+                divided_list = this.makePages(info);
+                List<List<List<String>>> finalDivided_list = divided_list;
+                currPage = 0;
+                try {
+                    this.makeArticleButtons(divided_list.get(currPage));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            });
+                refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        display(finalDivided_list);
+                    }
+                });
+            }
         }
     }
 }
