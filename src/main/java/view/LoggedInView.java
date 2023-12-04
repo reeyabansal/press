@@ -1,5 +1,6 @@
 package view;
 
+
 import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryController;
@@ -7,6 +8,7 @@ import interface_adapters.History.HistoryViewModel;
 import interface_adapters.LoggedIn.LoggedInState;
 import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Map.MapController;
+import interface_adapters.Map.MapState;
 import interface_adapters.Map.MapViewModel;
 import interface_adapters.Search.SearchController;
 import interface_adapters.Search.SearchViewModel;
@@ -31,10 +33,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreen extends JPanel implements ActionListener, PropertyChangeListener {
-    public String viewName = "homeScreen";
+public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
+    public String viewName = "logged in";
+    private final LoggedInViewModel loggedInViewModel;
+
     private final JPanel home;
-    private final JFrame app;
+    // private final JFrame app;
     private final JTextField search;
     private final JPanel map;
     private final JPanel btns;
@@ -62,7 +66,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private final String username;
 
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
+    public LoggedInView(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
         this.topNewsController = topNewsController;
         this.topNewsViewModel = topNewsViewModel;
         this.searchController = searchController;
@@ -82,10 +86,11 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.mapViewModel.addPropertyChangeListener(this);
         this.seeHistoryViewModel.addPropertyChangeListener(this);
         this.seeFavouritesViewModel.addPropertyChangeListener(this);
+        this.loggedInViewModel = loggedInViewModel;
 
         username = loggedInViewModel.getState().getUsername();
 
-        app = new JFrame();
+        // app = new JFrame();
 
         home = new JPanel(new BorderLayout());
 
@@ -197,11 +202,11 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.makeCountryClick(bIND, "India");
         this.makeCountryClick(bCHN, "China");
 
-        app.add(home);
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setTitle("press");
-        app.pack();
-        app.setVisible(true);
+        this.add(home);
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // this.setTitle("press");
+        // this.pack();
+        this.setVisible(true);
 
 
     }
@@ -362,7 +367,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoggedInState state = (LoggedInState) evt.getNewValue();
-
         if (evt.getPropertyName().equals("mapState")) {
             info.clear();
             info = this.mapViewModel.getState().getArticles();

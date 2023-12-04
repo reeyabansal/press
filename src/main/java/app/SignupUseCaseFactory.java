@@ -1,17 +1,19 @@
 package app;
 
-import view.SignupScreen;
-import interface_adapters.Login.LoginViewModel;
-import interface_adapters.Signup.SignupController;
-import interface_adapters.Signup.SignupPresenter;
-import interface_adapters.Signup.SignupViewModel;
-import interface_adapters.ViewManagerModel;
-import use_case.SignUp.SignupUserDataAccessInterface;
 import entity.CommonUserFactory;
 import entity.UserFactory;
-import use_case.SignUp.SignupInputBoundary;
-import use_case.SignUp.SignupInteractor;
-import use_case.SignUp.SignupOutputBoundary;
+import interface_adapters.login.LoginViewModel;
+import interface_adapters.signup.SignupController;
+import interface_adapters.signup.SignupPresenter;
+import interface_adapters.signup.SignupViewModel;
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
+import use_case.signup.SignupUserDataAccessInterface;
+import view.SignupScreen;
+
+import interface_adapters.ViewManagerModel;
+
 
 
 import javax.swing.*;

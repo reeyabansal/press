@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 public class CommonUserFactory implements UserFactory {
     /**
      * Requires: password is valid.
-     * @param email
+     * @param name
      * @param password
      * @return
      */
 
     @Override
-    public User create(String email, String password, LocalDateTime ltd) {
-        return new CommonUser(email, password, ltd);
+    public User create(String name, String password, LocalDateTime ltd) {
+        return new CommonUser(name, password, ltd);
     }
 }

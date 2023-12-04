@@ -1,7 +1,7 @@
 package data_access;
 
 import entity.User;
-import use_case.SignUp.SignupUserDataAccessInterface;
+import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +14,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
      * @param identifier the user's username
      * @return whether the user exists
      */
-
     @Override
-    public boolean existsbyEmail(String identifier) {
+    public boolean existsByName(String identifier) {
         return users.containsKey(identifier);
     }
 
@@ -25,12 +24,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
      */
     @Override
     public void save(User user) {
-        users.put(user.getEmail(), user);
+        users.put(user.getName(), user);
     }
 
-    @Override
-    // assumes user exists
-    public User get(String email) {
-        return users.get(email);
-    }
+
+    
 }
