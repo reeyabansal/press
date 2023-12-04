@@ -1,7 +1,7 @@
-package interface_adapters.Signup;
+package interface_adapters.signup;
 
-import use_case.SignUp.SignupInputBoundary;
-import use_case.SignUp.SignupInputData;
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInputData;
 
 public class SignupController {
 
@@ -10,10 +10,11 @@ public class SignupController {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
 
-    public void execute(String email, String password1, String password2) {
+    public void execute(String username, String password1, String password2) {
         SignupInputData signupInputData = new SignupInputData(
-                email, password1, password2);
+                username, password1, password2);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
+
 }

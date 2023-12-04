@@ -31,11 +31,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreen extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
     public String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
     private final JPanel home;
-    private final JFrame app;
+    // private final JFrame app;
     private final JTextField search;
     private final JPanel map;
     private final JPanel btns;
@@ -63,7 +63,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     private final String username;
 
 
-    public HomeScreen(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
+    public LoggedInView(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
         this.topNewsController = topNewsController;
         this.topNewsViewModel = topNewsViewModel;
         this.searchController = searchController;
@@ -88,7 +88,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
         username = loggedInViewModel.getState().getUsername();
 
-        app = new JFrame();
+        // app = new JFrame();
+        this.setLayout(new BorderLayout());
 
         home = new JPanel(new BorderLayout());
 
@@ -200,11 +201,18 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
         this.makeCountryClick(bIND, "India");
         this.makeCountryClick(bCHN, "China");
 
-        app.add(home);
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //home.setSize(1470, 830);
+
+        this.setSize(1470, 830);
+
+        this.add(home);
+        this.setVisible(true);
+
+        /*app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setTitle("press");
         app.pack();
         app.setVisible(true);
+        this.add(app);*/
 
 
     }
@@ -352,8 +360,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                     throw new RuntimeException(ex);
                 }
             }
-           btns.revalidate();
-           btns.repaint();
+            btns.revalidate();
+            btns.repaint();
         }
     }
 
@@ -364,7 +372,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoggedInState state = (LoggedInState) evt.getNewValue();
+        // LoggedInState state = (LoggedInState) evt.getNewValue();
         if (evt.getPropertyName().equals("mapState")) {
             info.clear();
             info = this.mapViewModel.getState().getArticles();

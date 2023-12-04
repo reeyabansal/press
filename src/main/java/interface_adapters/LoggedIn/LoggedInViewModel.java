@@ -46,3 +46,4 @@ public class LoggedInViewModel extends ViewModel {
         this.loggedInUser = loggedInUser;
     }
 }
+
