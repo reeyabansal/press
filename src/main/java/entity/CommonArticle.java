@@ -2,14 +2,14 @@ package entity;
 import java.util.Date;
 
 public class CommonArticle implements Article {
-    private final String title;
+    private String title;
 
     private final String url;
     private final String imageUrl;
     private final String language;
     private final String country;
-    private final String description;
-    private final String author;
+    private String description;
+    private String author;
     private final String newsSource;
     private final String publishedAt;
     private final Date created;
@@ -43,6 +43,15 @@ public class CommonArticle implements Article {
 
     @Override
     public String getTitle() {
+        if (title != null) {
+            int titleLength = title.length();
+            for (int i = 0; i < titleLength; i++) {
+                if (title.charAt(i) == ',') {
+                    title = title.replace(",", " ");
+                }
+            }
+        }
+
         return title;
     }
 
@@ -68,10 +77,26 @@ public class CommonArticle implements Article {
 
     @Override
     public String getDescription() {
+        if (description != null) {
+            int descriptionLength = description.length();
+            for (int i = 0; i < descriptionLength; i++) {
+                if (description.charAt(i) == ',') {
+                    description = description.replace(",", " ");
+                }
+            }
+        }
         return description;
     }
     @Override
     public String getAuthor() {
+        if (author != null) {
+            int authorLength = author.length();
+            for (int i = 0; i < authorLength; i++) {
+                if (author.charAt(i) == ',') {
+                    author = author.replace(",", " ");
+                }
+            }
+        }
         return author;
     }
 
