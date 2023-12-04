@@ -28,22 +28,22 @@ public class TopNewsPresenter implements TopNewsOutputBoundary {
         TopNewsState topNewsState = topNewsViewModel.getState();
         topNewsState.setArticleInfo(articleInfo);
 
-        List<Integer> totalResults = topNewsOutputData.getTotalResults();
-        List<Integer> sizes = new ArrayList<>();
-        int max = Collections.max(totalResults);
-        int min = Collections.min(totalResults);
-        int maxCircleSize = 60;
-        int minCircleSize = 10;
-        for (int articles : totalResults) {
-            double radius = ((double) (articles - min) / (max - min)) *
-                    (maxCircleSize - minCircleSize) + minCircleSize;
-            sizes.add((int)radius);
-        }
+//        List<Integer> totalResults = topNewsOutputData.getTotalResults();
+//        List<Integer> sizes = new ArrayList<>();
+//        int max = Collections.max(totalResults);
+//        int min = Collections.min(totalResults);
+//        int maxCircleSize = 60;
+//        int minCircleSize = 10;
+//        for (int articles : totalResults) {
+//            double radius = ((double) (articles - min) / (max - min)) *
+//                    (maxCircleSize - minCircleSize) + minCircleSize;
+//            sizes.add((int)radius);
+//        }
 //        System.out.println(totalResults);
 //        System.out.println(sizes);
 //        System.out.println(articleInfo);
 
-        topNewsState.setSizes(sizes);
+//        topNewsState.setSizes(sizes);
 
         this.topNewsViewModel.setState(topNewsState);
         topNewsViewModel.firePropertyChanged();

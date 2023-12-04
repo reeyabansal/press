@@ -23,6 +23,14 @@ public class LoginUseCaseFactory {
     /** Prevent instantiation. */
     private LoginUseCaseFactory() {}
 
+    /**
+     *
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param loggedInViewModel
+     * @param userDataAccessObject
+     * @return
+     */
     public static LoginScreen create(
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,

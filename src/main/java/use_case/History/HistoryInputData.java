@@ -20,7 +20,7 @@ public class HistoryInputData {
     /**
      *
      * @return article
-     * Getter method for article atribute
+     * Getter method for article attribute
      */
     public List<String> getArticle() {
         return article;
@@ -29,7 +29,7 @@ public class HistoryInputData {
     /**
      *
      * @return username
-     * Getter method for username atribute
+     * Getter method for username attribute
      */
     public String getUsername() {
         return username;

@@ -24,6 +24,14 @@ public class SignupUseCaseFactory {
     /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
+    /**
+     *
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param signupViewModel
+     * @param userDataAccessObject
+     * @return
+     */
     public static SignupScreen create(
             ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject) {
 

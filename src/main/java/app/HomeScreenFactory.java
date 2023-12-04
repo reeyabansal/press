@@ -52,6 +52,22 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class HomeScreenFactory {
+    /**
+     *
+     * @param viewManagerModel
+     * @param mapViewModel
+     * @param topNewsViewModel
+     * @param searchViewModel
+     * @param favouriteViewModel
+     * @param seeFavouritesViewModel
+     * @param historyViewModel
+     * @param seeHistoryViewModel
+     * @param favouriteDataAccessObject
+     * @param historyDataAccessObject
+     * @param loggedInViewModel
+     * @return
+     * Creates the HomeScreen object
+     */
     public static HomeScreen create(ViewManagerModel viewManagerModel, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, FavouriteDataAccessObject favouriteDataAccessObject, HistoryDataAccessObject historyDataAccessObject, LoggedInViewModel loggedInViewModel) {
         try {
             MapController mapController = createMapUseCase(viewManagerModel, mapViewModel);

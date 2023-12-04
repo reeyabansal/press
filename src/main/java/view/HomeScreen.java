@@ -362,6 +362,7 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoggedInState state = (LoggedInState) evt.getNewValue();
+
         if (evt.getPropertyName().equals("mapState")) {
             info.clear();
             info = this.mapViewModel.getState().getArticles();

@@ -16,10 +16,18 @@ public class SeeFavouritesViewModel extends ViewModel {
         super("seeFavourites");
     }
 
+    /**
+     *
+     * @return
+     */
     public SeeFavouritesState getState() {
         return state;
     }
 
+    /**
+     *
+     * @param seeFavouritesState
+     */
     public void setState(SeeFavouritesState seeFavouritesState) {
         this.state = seeFavouritesState;
     }
@@ -28,6 +36,10 @@ public class SeeFavouritesViewModel extends ViewModel {
         support.firePropertyChange("seeFavouritesState", null, this.state);
     }
 
+    /**
+     *
+     * @param listener
+     */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);

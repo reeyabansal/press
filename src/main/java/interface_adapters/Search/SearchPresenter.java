@@ -22,6 +22,7 @@ public class SearchPresenter implements SearchOutputBoundary {
         // Gets the current viewModel state, updates it, and sets it again, then fires a property change
         List<List<String>> articles = searchOutputData.getArticles();
         SearchState searchState = searchViewModel.getState();
+        searchState.setArticles(articles);
         this.searchViewModel.setState(searchState);
         searchViewModel.firePropertyChanged();
 
