@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SeeHistoryInteractorTest {
-    class DummySeeHistoryDataAccessInterface implements SeeHistoryDataAccessInterface{
+    class DummySeeHistoryDataAccessInterface implements SeeHistoryDataAccessInterface {
         Map<String, List<List<String>>> history = new HashMap<>();
         DummySeeHistoryDataAccessInterface() {
             List<String> article1 = new ArrayList<>();
