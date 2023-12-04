@@ -41,10 +41,10 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final JPanel btns;
     private JButton[] articles;
     private final JButton refresh;
-    private List<List<String>> info = new ArrayList<>(); //example data set pulled from API
+    private List<List<String>> info = new ArrayList<>();
     private String keyword;
     private int currPage;
-
+    private List<List<List<String>>> divided_list = new ArrayList<>();
     private final MapController mapController;
     private final TopNewsController topNewsController;
     private final MapViewModel mapViewModel;
@@ -200,18 +200,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.makeCountryClick(bIND, "India");
         this.makeCountryClick(bCHN, "China");
 
-        //home.setSize(1470, 830);
 
         this.setSize(1470, 830);
 
         this.add(home);
         this.setVisible(true);
-
-        /*app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setTitle("press");
-        app.pack();
-        app.setVisible(true);
-        this.add(app);*/
 
 
     }
@@ -374,8 +367,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         // LoggedInState state = (LoggedInState) evt.getNewValue();
         if (evt.getPropertyName().equals("mapState")) {
             info.clear();
+            divided_list.clear();
             info = this.mapViewModel.getState().getArticles();
-            List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
             List<List<List<String>>> finalDivided_list = divided_list;
             currPage = 0;
@@ -396,12 +389,12 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         }
         if (evt.getPropertyName().equals("searchState")) {
             info.clear();
+            divided_list.clear();
             info = this.searchViewModel.getState().getArticles();
             if (info.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No results for this word");
             }
             else{
-                List<List<List<String>>> divided_list = new ArrayList<>();
                 divided_list = this.makePages(info);
                 List<List<List<String>>> finalDivided_list = divided_list;
                 currPage = 0;
@@ -420,8 +413,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         }
         if (evt.getPropertyName().equals("topNewsState")) {
             info.clear();
+            divided_list.clear();
             info = this.topNewsViewModel.getState().getArticleInfo();
-            List<List<List<String>>> divided_list = new ArrayList<>();
             divided_list = this.makePages(info);
             List<List<List<String>>> finalDivided_list = divided_list;
             currPage = 0;
@@ -440,11 +433,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         }
         if (evt.getPropertyName().equals("seeFavouritesState")) {
             info.clear();
+            divided_list.clear();
             info = this.seeFavouritesViewModel.getState().getArticles();
             if (info.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No articles found in favourites.");
             } else {
-                List<List<List<String>>> divided_list = new ArrayList<>();
                 divided_list = this.makePages(info);
                 List<List<List<String>>> finalDivided_list = divided_list;
                 currPage = 0;
@@ -464,13 +457,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         }
         if (evt.getPropertyName().equals("seeHistoryState")) {
             info.clear();
+            divided_list.clear();
             info = this.seeHistoryViewModel.getState().getArticles();
             if (info.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No articles found in history.");
             } else {
-
-                System.out.println("reached here");
-                List<List<List<String>>> divided_list = new ArrayList<>();
                 divided_list = this.makePages(info);
                 List<List<List<String>>> finalDivided_list = divided_list;
                 currPage = 0;
