@@ -1,4 +1,4 @@
-package interface_adapters.Login;
+package interface_adapters.login;
 
 import interface_adapters.ViewModel;
 
@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 public class LoginViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Log In View";
-    public final String EMAIL_LABEL = "Enter email";
+    public final String USERNAME_LABEL = "Enter username";
     public final String PASSWORD_LABEL = "Enter password";
 
     public static final String LOGIN_BUTTON_LABEL = "Log in";

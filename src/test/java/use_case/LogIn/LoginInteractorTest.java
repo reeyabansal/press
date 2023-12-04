@@ -4,14 +4,12 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import use_case.SignUp.SignupOutputBoundary;
-import use_case.SignUp.SignupOutputData;
+
+import use_case.login.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LoginInteractorTest {
     class DummyLoginDAO implements LoginUserDataAccessInterface {
@@ -22,14 +20,20 @@ class LoginInteractorTest {
             users.put("user1", factory.create("user1","pass1", LocalDateTime.now()));
         }
 
+
         @Override
         public boolean existsByEmail(String identifier) {
+            return false;
+        }
+
+        @Override
+        public boolean existsByName(String identifier) {
             return users.containsKey(identifier);
         }
 
         @Override
         public void save(User user) {
-            users.put(user.getEmail(), user);
+            users.put(user.getName(), user);
         }
 
         @Override
@@ -61,7 +65,7 @@ class LoginInteractorTest {
 
         // test success
         interactor.execute(new LoginInputData("user1", "pass1"));
-        assert(outputBoundary.data.getEmail().equals("user1"));
+        assert(outputBoundary.data.getUsername().equals("user1"));
 
         // test fail by not exists
         interactor.execute(new LoginInputData("user2", "pass1"));

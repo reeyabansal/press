@@ -1,27 +1,29 @@
 package entity;
 
+import entity.User;
+
 import java.time.LocalDateTime;
 
 class CommonUser implements User {
 
-    private final String email;
+    private final String name;
     private final String password;
     private final LocalDateTime creationTime;
 
     /**
      * Requires: password is valid.
-     * @param email
+     * @param name
      * @param password
      */
-    CommonUser(String email, String password, LocalDateTime creationTime) {
-        this.email = email;
+    CommonUser(String name, String password, LocalDateTime creationTime) {
+        this.name = name;
         this.password = password;
         this.creationTime = creationTime;
     }
 
     @Override
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
     @Override

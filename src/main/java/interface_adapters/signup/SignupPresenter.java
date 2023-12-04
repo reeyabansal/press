@@ -1,10 +1,11 @@
-package interface_adapters.Signup;
+package interface_adapters.signup;
 
-import interface_adapters.Login.LoginState;
-import interface_adapters.Login.LoginViewModel;
+
 import interface_adapters.ViewManagerModel;
-import use_case.SignUp.SignupOutputBoundary;
-import use_case.SignUp.SignupOutputData;
+import interface_adapters.login.LoginState;
+import interface_adapters.login.LoginViewModel;
+import use_case.signup.SignupOutputBoundary;
+import use_case.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +31,7 @@ public class SignupPresenter implements SignupOutputBoundary {
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
         LoginState loginState = loginViewModel.getState();
-        loginState.setEmail(response.getEmail());
+        loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
 

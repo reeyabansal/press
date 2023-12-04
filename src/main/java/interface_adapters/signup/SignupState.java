@@ -1,17 +1,16 @@
-package interface_adapters.Signup;
+package interface_adapters.signup;
 
 public class SignupState {
-
-    private String email = "";
-    private String emailError = null;
+    private String username = "";
+    private String usernameError = null;
     private String password = "";
     private String passwordError = null;
     private String repeatPassword = "";
     private String repeatPasswordError = null;
 
     public SignupState(SignupState copy) {
-        email = copy.email;
-        emailError = copy.emailError;
+        username = copy.username;
+        usernameError = copy.usernameError;
         password = copy.password;
         passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
@@ -23,11 +22,11 @@ public class SignupState {
     }
 
     public String getUsername() {
-        return email;
+        return username;
     }
 
     public String getUsernameError() {
-        return emailError;
+        return usernameError;
     }
 
     public String getPassword() {
@@ -46,12 +45,12 @@ public class SignupState {
         return repeatPasswordError;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUsernameError(String emailError) {
-        this.emailError = emailError;
+    public void setUsernameError(String usernameError) {
+        this.usernameError = usernameError;
     }
 
     public void setPassword(String password) {
@@ -73,7 +72,7 @@ public class SignupState {
     @Override
     public String toString() {
         return "SignupState{" +
-                "username='" + email + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", repeatPassword='" + repeatPassword + '\'' +
                 '}';
