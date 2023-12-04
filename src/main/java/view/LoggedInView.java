@@ -289,7 +289,16 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     String Description = u.get(2);
                     String URL = u.get(3);
                     String PublishedAt = u.get(4);
+                    PublishedAt = PublishedAt.substring(0, 10);
                     String Author = u.get(5);
+
+                    String max = Title + Description;
+                    if(max.length() > 220){
+                        String s = max.substring(0, 220);
+                        String smalldes = Description.substring(0, (s.length() - Title.length()) - 3);
+                        Description = smalldes + "...";
+                    }
+
                     String text = "\n" + Description + "\n" + PublishedAt + "\n" + Author;
                     BufferedImage image;
                     image = ImageIO.read(new URL("https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg"));
