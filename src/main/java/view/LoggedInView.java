@@ -60,7 +60,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final HistoryViewModel historyViewModel;
     private final SeeHistoryController seeHistoryController;
 
-    private final String username;
+    private String username;
 
 
     public LoggedInView(MapController mapController, TopNewsController topNewsController, SearchController searchController, FavouriteController favouriteController, SeeFavouritesController seeFavouritesController, HistoryController historyController, SeeHistoryController seeHistoryController, MapViewModel mapViewModel, TopNewsViewModel topNewsViewModel, SearchViewModel searchViewModel, FavouriteViewModel favouriteViewModel, SeeFavouritesViewModel seeFavouritesViewModel, HistoryViewModel historyViewModel, SeeHistoryViewModel seeHistoryViewModel, LoggedInViewModel loggedInViewModel) throws IOException, InterruptedException {
@@ -101,7 +101,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 try {
                     searchController.execute(search.getText());
-                    System.out.println("executed search");
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -391,6 +390,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     display(finalDivided_list);
                 }
             });
+        }
+        if (evt.getPropertyName().equals("loggedInState")) {
+            username = loggedInViewModel.getState().getUsername();
         }
         if (evt.getPropertyName().equals("searchState")) {
             info.clear();

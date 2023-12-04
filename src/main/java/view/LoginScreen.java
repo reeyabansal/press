@@ -1,6 +1,8 @@
 package view;
 
 
+import interface_adapters.LoggedIn.LoggedInState;
+import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.login.LoginController;
 import interface_adapters.login.LoginState;
 import interface_adapters.login.LoginViewModel;
@@ -18,6 +20,7 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
+    private final LoggedInViewModel loggedInViewModel;
 
     final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
@@ -29,10 +32,11 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
     final JButton cancel;
     private final LoginController loginController;
 
-    public LoginScreen(LoginViewModel loginViewModel, LoginController controller) {
+    public LoginScreen(LoginViewModel loginViewModel, LoginController controller, LoggedInViewModel loggedInViewModel) {
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
+        this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Login Screen");
@@ -59,6 +63,9 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
                                     currentState.getUsername(),
                                     currentState.getPassword()
                             );
+                            LoggedInState loggedInState = loggedInViewModel.getState();
+                            loggedInState.setUsername(currentState.getUsername());
+                            loggedInViewModel.setState(loggedInState);
                         }
                     }
                 }
@@ -121,6 +128,9 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
+        LoggedInState loggedInState = loggedInViewModel.getState();
+        loggedInState.setUsername(state.getUsername());
+        loggedInViewModel.setState(loggedInState);
     }
 
     private void setFields(LoginState state) {
