@@ -4,7 +4,6 @@ import interface_adapters.Favourite.FavouriteController;
 import interface_adapters.Favourite.FavouriteViewModel;
 import interface_adapters.History.HistoryController;
 import interface_adapters.History.HistoryViewModel;
-import interface_adapters.LoggedIn.LoggedInState;
 import interface_adapters.LoggedIn.LoggedInViewModel;
 import interface_adapters.Map.MapController;
 import interface_adapters.Map.MapViewModel;
@@ -349,8 +348,8 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
                     throw new RuntimeException(ex);
                 }
             }
-            btns.revalidate();
-            btns.repaint();
+           btns.revalidate();
+           btns.repaint();
         }
     }
 
@@ -361,8 +360,6 @@ public class HomeScreen extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoggedInState state = (LoggedInState) evt.getNewValue();
-
         if (evt.getPropertyName().equals("mapState")) {
             info.clear();
             info = this.mapViewModel.getState().getArticles();

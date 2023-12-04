@@ -1,10 +1,12 @@
-package interface_adapters.login;
+package interface_adapters.Login;
 
 import interface_adapters.LoggedIn.LoggedInState;
 import interface_adapters.LoggedIn.LoggedInViewModel;
+import interface_adapters.TopNews.TopNewsState;
+import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
-import use_case.login.LoginOutputBoundary;
-import use_case.login.LoginOutputData;
+import use_case.LogIn.LoginOutputBoundary;
+import use_case.LogIn.LoginOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
 
@@ -25,7 +27,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         // On success, switch to the logged in view.
 
         LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(response.getUsername());
+        loggedInState.setUsername(response.getEmail());
         this.loggedInViewModel.setState(loggedInState);
         this.loggedInViewModel.firePropertyChanged();
 
@@ -36,7 +38,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         LoginState loginState = loginViewModel.getState();
-        loginState.setUsernameError(error);
+        loginState.setEmailError(error);
         loginViewModel.firePropertyChanged();
     }
 }

@@ -1,19 +1,19 @@
 package app;
 
+import interface_adapters.LoggedIn.LoggedInState;
+import interface_adapters.LoggedIn.LoggedInViewModel;
+import view.LoginScreen;
 import entity.CommonUserFactory;
 import entity.UserFactory;
-import interface_adapters.LoggedIn.LoggedInViewModel;
-import interface_adapters.login.LoginController;
-import interface_adapters.login.LoginPresenter;
-import interface_adapters.login.LoginViewModel;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
-import use_case.login.LoginUserDataAccessInterface;
-import view.LoginScreen;
-
+import interface_adapters.Login.LoginController;
+import interface_adapters.Login.LoginPresenter;
+import interface_adapters.Login.LoginViewModel;
+import interface_adapters.TopNews.TopNewsViewModel;
 import interface_adapters.ViewManagerModel;
-
+import use_case.LogIn.LoginInputBoundary;
+import use_case.LogIn.LoginInteractor;
+import use_case.LogIn.LoginOutputBoundary;
+import use_case.LogIn.LoginUserDataAccessInterface;
 
 import javax.swing.*;
 import java.io.IOException;
