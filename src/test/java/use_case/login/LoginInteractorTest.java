@@ -1,11 +1,9 @@
-package use_case.LogIn;
+package use_case.login;
 
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-
-import use_case.login.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
