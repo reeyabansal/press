@@ -1,9 +1,11 @@
-package use_case.signup;
+package use_case.SignUp;
 
 import entity.User;
 
 public interface SignupUserDataAccessInterface {
-    boolean existsByName(String identifier);
+    boolean existsbyEmail(String identifier);
 
     void save(User user);
+
+    User get(String email);
 }

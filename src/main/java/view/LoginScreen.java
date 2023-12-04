@@ -1,62 +1,89 @@
 package view;
-
-
-import interface_adapters.login.LoginController;
-import interface_adapters.login.LoginState;
-import interface_adapters.login.LoginViewModel;
+import interface_adapters.Login.LoginController;
+import interface_adapters.Login.LoginState;
+import interface_adapters.Login.LoginViewModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
-public class LoginScreen extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoginScreen extends JFrame implements ActionListener {
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
-    final JTextField usernameInputField = new JTextField(15);
-    private final JLabel usernameErrorField = new JLabel();
-
-    final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JLabel passwordErrorField = new JLabel();
-
-    final JButton logIn;
-    final JButton cancel;
     private final LoginController loginController;
 
-    public LoginScreen(LoginViewModel loginViewModel, LoginController controller) {
+    private JPasswordField passwordField;
+    private JTextField emailField;
+    private JLabel label_password, label_email, message, title;
+    private JButton signUpBtn, logInBtn;
+    private JFrame app;
+    private JPanel home;
 
-        this.loginController = controller;
+
+    public LoginScreen(LoginViewModel loginViewModel, LoginController loginController) {
+
+        this.loginController = loginController;
         this.loginViewModel = loginViewModel;
-        this.loginViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Login Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        app = new JFrame();
+        home = new JPanel();
+        // home.setLayout(new FlowLayout());
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
-        LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
 
-        JPanel buttons = new JPanel();
-        logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
-        buttons.add(logIn);
-        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        app.setSize(1200, 800);
+        app.setLocationRelativeTo(null);
+        app.setLayout(null);
 
-        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+        label_email = new JLabel("Email");
+        label_email.setBounds(400, 300, 100, 40);
+
+        emailField = new JTextField();
+        emailField.setBounds(500, 300, 300, 40);
+
+        label_password = new JLabel("Password");
+        label_password.setBounds(400, 350, 100, 40);
+
+        passwordField = new JPasswordField();
+        passwordField.setBounds(500, 350, 300, 40);
+
+        passwordField = new JPasswordField();
+        passwordField.setBounds(500, 350, 300, 40);
+
+        signUpBtn = new JButton("Create Account");
+        signUpBtn.setBounds(610, 420, 120, 40);
+        signUpBtn.addActionListener(this);
+
+        /*logInBtn = new JButton("Log-in");
+        logInBtn.setBounds(500, 420, 100, 40);
+        logInBtn.addActionListener(this);*/
+
+
+        app.add(label_email);
+        app.add(emailField);
+        app.add(passwordField);
+        app.add(label_password);
+        app.add(signUpBtn);
+        app.add(logInBtn);
+
+        app.setTitle("Sign Up");
+        // app.pack();
+        app.setVisible(true);
+
+        logInBtn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(logIn)) {
+                        if (evt.getSource().equals(logInBtn)) {
                             LoginState currentState = loginViewModel.getState();
 
                             loginController.execute(
-                                    currentState.getUsername(),
+                                    currentState.getEmail(),
                                     currentState.getPassword()
                             );
                         }
@@ -64,13 +91,11 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
-        cancel.addActionListener(this);
-
-        usernameInputField.addKeyListener(new KeyListener() {
+        emailField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
+                currentState.setEmail(emailField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
 
@@ -84,12 +109,12 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
         });
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        passwordInputField.addKeyListener(
+        passwordField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         LoginState currentState = loginViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        currentState.setPassword(passwordField.getText() + e.getKeyChar());
                         loginViewModel.setState(currentState);
                     }
 
@@ -102,28 +127,20 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
                     }
                 });
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
-        this.add(passwordInfo);
-        this.add(passwordErrorField);
-        this.add(buttons);
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-    }
 
     @Override
+    public void actionPerformed(ActionEvent evt) {
+
+    }
+
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
     }
 
     private void setFields(LoginState state) {
-        usernameInputField.setText(state.getUsername());
+        emailField.setText(state.getEmail());
     }
 }
