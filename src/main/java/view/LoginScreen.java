@@ -28,6 +28,9 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
     final JPasswordField passwordInputField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
 
+    JLabel title1, description;
+
+
     final JButton logIn;
     final JButton cancel;
     private final LoginController loginController;
@@ -109,7 +112,21 @@ public class LoginScreen extends JPanel implements ActionListener, PropertyChang
                     }
                 });
 
-        this.add(title);
+        title1 = new JLabel("PRESS");
+        title1.setFont(new Font("Verdana", Font.BOLD, 60));
+        Color color = new Color(110, 188, 219);
+        title1.setForeground(color);
+        title1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        description = new JLabel("stay updated, stay notified, stay relevant.");
+        description.setFont(new Font("Verdana", Font.PLAIN, 10));
+        description.setForeground(Color.darkGray);
+        description.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        this.add(title1);
+        this.add(description);
+        this.setBackground(Color.white);
+        buttons.setBackground(Color.white);
         this.add(usernameInfo);
         this.add(usernameErrorField);
         this.add(passwordInfo);
