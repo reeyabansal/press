@@ -1,6 +1,9 @@
-# press
+# Interactive News World Map by team PRESS
 
-## A description of the problem domain your team is tentatively wanting to focus on in the project:
+## Main Screen:
+![mainScreen.png](mainScreen.png)
+
+## Project Domain:
 
 Thousands of news articles are uploaded every day. With different sources and different points of view, it can be hard to filter through the various reports. We propose to explore this problem domain through this project and focus on these areas to address the challenges that different individuals might face when looking up the news for today.
 
@@ -11,19 +14,15 @@ Another issue that users face is selecting the current events articles that they
 In conclusion, this project will try to solve the problem of abundant and redundant news articles. We will strive to educate the population about current events, so more people are aware of what is currently going around in the world through accurate sources. 
 
 
-## High-level description of what kind of application your team is thinking of developing:
+## High-level Description:
 
 The application will show a map where the user can click on specific countries which will display the links to the latest news articles from that region. Each news article will contain a title, a designated visual, a short summary, and the date. In addition to that, the user will be presented with the option to filter the news articles based on a given time frame and language. 
 Our team hopes to show the news articles that are more relevant to them. The program will also have a feature that will color code the regions based on the top stories in today’s world - essentially an activity heat map. 
 
-## Link to the documentation for an API:
+## API Documentation:
 https://newsapi.org/docs
 
-## A screenshot of using a tool to try out the API:
+## API Use Examples:
 ![hoppscotch test api call.png](hoppscotch%20test%20api%20call.png)
-
-## Example output of running your Java code:
 ![api call result.png](api%20call%20result.png)
 
-## A list of any technical problems blocking progress:
-None currently.
